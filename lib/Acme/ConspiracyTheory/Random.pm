@@ -43,54 +43,61 @@ sub celebrity {
 sub shady_group {
 	my $orig_meta = shift // {};
 	
-	my $xx = _RANDOM_(
-		{ plural => 1, name => 'the Knights Templar', shortname => 'the Templars' },
-		{ plural => 1, name => 'the Illuminati' },
-		{ plural => 1, name => 'the Freemasons', shortname => 'the Masons' },
-		{ plural => 0, name => 'the Ordo Templi Orientis' },
-		{ plural => 1, name => 'the Cabalists' },
-		{ plural => 1, name => 'the Followers of the Temple Of The Vampire', shortname => 'the Vampires' },
-		{ plural => 0, name => 'the Secret Order of the Knights of the Round Table', shortname => 'the Knights' },
-		{ plural => 1, name => 'the Cardinals of the Catholic Church', shortname => 'the Cardinals' },
-		{ plural => 0, name => 'the Church of Satan', shortname => 'the Church' },
-		{ plural => 1, name => 'the Gnostics' },
-		{ plural => 1, name => 'the Elders of Zion', shortname => 'the Elders' },
-		{ plural => 1, name => 'the Jesuits' },
-		{ plural => 0, name => 'the Babylonian Brotherhood', shortname => 'the Brotherhood' },
-		{ plural => 0, name => 'the Hermetic Order of the Golden Dawn', shortname => 'the Order' },
-		{ plural => 0, name => 'Opus Dei' },
-		{ plural => 0, name => 'the Priory of Sion', shortname => 'the Priory' },
-		{ plural => 0, name => 'GameStop' },
-		{ plural => 0, name => 'the British Royal Family', shortname => 'the Royals' },
-		{ plural => 0, name => 'NASA' },
-		{ plural => 1, name => 'the Zionists' },
-		{ plural => 0, name => 'the Trump administration' },
-		{ plural => 0, name => 'the Biden administration' },
-		{ plural => 0, name => 'the Republican party', shortname => 'the Republicans' },
-		{ plural => 0, name => 'the Democrat party', shortname => 'the Democrats' },
-		{ plural => 0, name => 'the New World Order' },
-		{ plural => 1, name => 'the Communists' },
-		{ plural => 0, name => 'the Shadow Government' },
-		{ plural => 0, name => 'the global financial elite' },
-		{ plural => 0, name => 'the global scientific elite' },
-		{ plural => 0, name => 'Big Pharma' },
-		{ plural => 1, name => 'the lizard people', shortname => 'the lizardmen' },
-		{ plural => 1, name => 'the grey aliens', shortname => 'the aliens' },
-		{ plural => 1, name => 'the big Hollywood studios', shortname => 'Hollywood' },
-		{ plural => 0, name => 'the music industry' },
-		{ plural => 1, name => 'shape-shifting aliens', shortname => 'the shape-shifters' },
-		{ plural => 1, name => 'Satanists' },
-		{ plural => 1, name => 'pagans' },
-		{ plural => 1, name => 'atheists' },
-		{ plural => 1, name => 'people who like pineapple on pizza', shortname => 'the pineapple-lovers' },
-		{ plural => 0, name => 'the deep state' },
-		{ plural => 1, name => 'the descendents of Jesus', shortname => 'the descendents' },
-		{ plural => 1, name => 'Qanon' },
-		{ plural => 0, name => 'Microsoft' },
-		{ plural => 0, name => 'Twitter' },
-		{ plural => 0, name => 'Facebook' },
-		{ plural => 0, name => 'Google' },
-	);
+	my $xx;
+	PICK: {
+		$xx = _RANDOM_(
+			{ plural => 1, name => 'the Knights Templar', shortname => 'the Templars' },
+			{ plural => 1, name => 'the Illuminati' },
+			{ plural => 1, name => 'the Freemasons', shortname => 'the Masons' },
+			{ plural => 0, name => 'the Ordo Templi Orientis' },
+			{ plural => 1, name => 'the Cabalists' },
+			{ plural => 1, name => 'the Followers of the Temple Of The Vampire', shortname => 'the Vampires' },
+			{ plural => 0, name => 'the Secret Order of the Knights of the Round Table', shortname => 'the Knights' },
+			{ plural => 1, name => 'the Cardinals of the Catholic Church', shortname => 'the Cardinals' },
+			{ plural => 0, name => 'the Church of Satan', shortname => 'the Church' },
+			{ plural => 1, name => 'the Gnostics' },
+			{ plural => 1, name => 'the Elders of Zion', shortname => 'the Elders' },
+			{ plural => 1, name => 'the Jesuits' },
+			{ plural => 0, name => 'the Babylonian Brotherhood', shortname => 'the Brotherhood' },
+			{ plural => 0, name => 'the Hermetic Order of the Golden Dawn', shortname => 'the Order' },
+			{ plural => 0, name => 'Opus Dei' },
+			{ plural => 0, name => 'the Priory of Sion', shortname => 'the Priory' },
+			{ plural => 0, name => 'GameStop' },
+			{ plural => 0, name => 'the British Royal Family', shortname => 'the Royals' },
+			{ plural => 0, name => 'NASA' },
+			{ plural => 1, name => 'the Zionists' },
+			{ plural => 0, name => 'the Trump administration' },
+			{ plural => 0, name => 'the Biden administration' },
+			{ plural => 0, name => 'the Republican party', shortname => 'the Republicans' },
+			{ plural => 0, name => 'the Democrat party', shortname => 'the Democrats' },
+			{ plural => 0, name => 'the New World Order' },
+			{ plural => 1, name => 'the Communists' },
+			{ plural => 0, name => 'the Shadow Government' },
+			{ plural => 0, name => 'the global financial elite' },
+			{ plural => 0, name => 'the global scientific elite' },
+			{ plural => 0, name => 'Big Pharma' },
+			{ plural => 1, name => 'the lizard people', shortname => 'the lizardmen' },
+			{ plural => 1, name => 'the grey aliens', shortname => 'the aliens' },
+			{ plural => 1, name => 'the big Hollywood studios', shortname => 'Hollywood' },
+			{ plural => 0, name => 'the music industry' },
+			{ plural => 1, name => 'shape-shifting aliens', shortname => 'the shape-shifters' },
+			{ plural => 1, name => 'Satanists' },
+			{ plural => 1, name => 'pagans' },
+			{ plural => 1, name => 'atheists' },
+			{ plural => 1, name => 'people who like pineapple on pizza', shortname => 'the pineapple-lovers' },
+			{ plural => 0, name => 'the deep state' },
+			{ plural => 1, name => 'the descendents of Jesus', shortname => 'the descendents' },
+			{ plural => 1, name => 'Qanon' },
+			{ plural => 0, name => 'Microsoft' },
+			{ plural => 0, name => 'Twitter' },
+			{ plural => 0, name => 'Facebook' },
+			{ plural => 0, name => 'Google' },
+		);
+		
+		redo PICK
+			if ( $orig_meta->{protagonists} and $orig_meta->{protagonists}{name} eq $xx->{name} )
+			|| ( $orig_meta->{antagonists}  and $orig_meta->{antagonists}{name}  eq $xx->{name} );
+	};
 	
 	_MERGE_( $orig_meta, shady_group => $xx );
 	return $xx->{name};
@@ -259,6 +266,9 @@ sub cryptids {
 		'demons',
 		'angels',
 		'skinwalkers',
+		'elves',
+		'goblins',
+		'mermaids',
 	);
 	
 	_MERGE_( $orig_meta, cryptids => $cryptids );
@@ -392,9 +402,27 @@ sub misinformation {
 	
 	my $info = _RANDOM_(
 		'the Earth is round',
+		'the Earth goes around the sun',
+		'humans are animals',
 		sub {
 			$orig_meta->{topic} = { name => 'the moon', plural => 0 };
 			'men have walked on the moon';
+		},
+		sub {
+			$orig_meta->{topic} = { name => 'electricity', plural => 0 };
+			'electricity exists';
+		},
+		sub {
+			$orig_meta->{topic} = { name => 'magnetism', plural => 0 };
+			'magnetism is real';
+		},
+		sub {
+			$orig_meta->{topic} = { name => 'gravity', plural => 0 };
+			'gravity is real';
+		},
+		sub {
+			$orig_meta->{topic} = { name => 'outer space', plural => 0 };
+			'space is real';
 		},
 		sub {
 			$orig_meta->{topic} = { name => 'viruses', plural => 1 };
@@ -408,7 +436,10 @@ sub misinformation {
 			my $animal = real_animal( $orig_meta );
 			"the $animal is real";
 		},
-		'Australia exists',
+		sub {
+			my $place = random_place( $orig_meta );
+			"$place is real";
+		},
 		'the Earth is 4.5 billion years old',
 		'the universe is 14 billion years old',
 		'dinosaurs are real',
@@ -559,6 +590,8 @@ sub evidence {
 			"patients with $d keep disappearing from hospitals",
 			"patients with $d are being silenced by the government",
 			"doctors working on $d are being killed",
+			"$d probably isn't even a real disease",
+			"nobody has ever died of $d",
 		);
 	}
 
@@ -579,9 +612,12 @@ sub evidence {
 
 	if ( my $topic = $orig_meta->{topic} ) {
 		my $topicname = $topic->{name};
+		my $have      = $topic->{plural} ? 'have' : 'has';
 		push @x, (
 			"there's hidden clues in the Wikipedia page about $topicname",
 			"Bible numerology has clues about $topicname",
+			"$topicname $have always been suspicious",
+			"$topicname $have connections to THEM",
 		);
 	}
 
@@ -627,6 +663,8 @@ sub evidence {
 				"$name ${( $orig_meta->{$actor}{plural} ? \'keep' : \'keeps' )} editing the Wikipedia page about $topicname",
 				"$name $are known to have ties to $topicname",
 				"'$name' is almost an anagram of '$topicname'",
+				"'$name' is the Hebrew word for '$topicname'",
+				"'$name' is an anagram of '$topicname' (if you spell it wrong)",
 			);
 		}
 	}
@@ -636,14 +674,23 @@ sub evidence {
 	if ( @evidences == 2 ) {
 		my ( $e1, $e2 ) = @evidences;
 		return _RANDOM_(
-			"You can tell the truth because $e1 and $e2.",
-			"You can tell because $e1 and $e2.",
+			"You can tell this is the truth because $e1 and $e2.",
+			"I know because $e1 and $e2.",
 			"You just need to connect the dots. " . ucfirst( "$e1 and $e2." ),
+			"I used to be asleep like you, but then I saw the clues. " . ucfirst( "$e1 and $e2. WAKE UP!" ),
+			"THEY HIDE THE TRUTH IN PLAIN SIGHT. " . ucfirst( "$e1 and $e2." ),
+			"You won't believe how deep the rabbit hole goes. " . ucfirst( "$e1 and $e2." ),
 			ucfirst( "$e1 and $e2. It's obvious if you connect the dots." ),
+			ucfirst( "$e1 and $e2. They leave clues to mock us." ),
 			ucfirst( "$e1 and $e2. Isn't it obvious?" ),
+			ucfirst( "$e1 and $e2. Wake up, sheeple!" ),
 			sub {
 				my $e3 = uc _RANDOM_(@x);
 				ucfirst( "$e1 and $e2. Isn't it obvious? $e3!" );
+			},
+			sub {
+				my $e3 = uc _RANDOM_(@x);
+				ucfirst( "$e1 and $e2. They leave clues to mock us! $e3! MOCK! MOCK!" );
 			},
 			sub {
 				my $t = {};
@@ -747,6 +794,22 @@ sub hidden_truth {
 		sub {
 			my $time = future_time( $orig_meta );
 			"the world will end $time";
+		},
+		sub {
+			my $time = future_time( $orig_meta );
+			$orig_meta->{topic} = { name => 'comets', plural => 1 };
+			"the comet will hit us $time";
+		},
+		sub {
+			my $place = random_place( $orig_meta );
+			$orig_meta->{topic} = { name => 'flooding', plural => 1 };
+			"$place was destroyed by floods";
+		},
+		sub {
+			my $place = random_place( $orig_meta );
+			my $group = $orig_meta->{shady_group}{name} // shady_group( $orig_meta );
+			$orig_meta->{topic} = { name => 'coup d\'etats', plural => 1 };
+			"$place is ruled by $group";
 		},
 		sub {
 			my $time = future_time( $orig_meta );
