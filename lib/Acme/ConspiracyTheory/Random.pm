@@ -760,7 +760,7 @@ sub hidden_truth {
 		},
 		sub {
 			my $mc    = mind_control_device( $orig_meta );
-			my $group = $orig_meta->{shady_group} // shady_group( $orig_meta );
+			my $group = $orig_meta->{shady_group}{name} // shady_group( $orig_meta );
 			"THEY ($group) are using $mc";
 		},
 		sub {
