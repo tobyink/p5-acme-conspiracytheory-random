@@ -7,7 +7,7 @@
 	:shortdesc            "random theories";
 	:homepage             <https://metacpan.org/release/Acme-ConspiracyTheory-Random>;
 	:download-page        <https://metacpan.org/release/Acme-ConspiracyTheory-Random>;
-	:bug-database         <http://rt.cpan.org/Dist/Display.html?Queue=Acme-ConspiracyTheory-Random>;
+	:bug-database         <https://github.com/tobyink/p5-acme-conspiracytheory-random/issues>;
 	:repository           [ a :GitRepository; :browse <https://github.com/tobyink/p5-acme-conspiracytheory-random> ];
 	:created              2021-01-31;
 	:license              <http://dev.perl.org/licenses/>;
