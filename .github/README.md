@@ -10,7 +10,7 @@
 Perl 5 distribution Acme-ConspiracyTheory-Random; see [homepage](https://metacpan.org/release/Acme-ConspiracyTheory-Random)
 for downloads and documentation.
 
-Directy installing from GitHub is not recommened; download the distribution
+Directly installing from GitHub is not recommened; download the distribution
 from the CPAN.
 
 ## Issues
