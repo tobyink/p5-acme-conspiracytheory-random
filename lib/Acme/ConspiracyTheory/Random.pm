@@ -478,7 +478,7 @@ sub evidence {
 				my $g = shady_group( $orig_meta );
 				"$v was secretly one of $g";
 			},
-			sub { 
+			sub {
 				my $animal = real_animal( $orig_meta );
 				"when they did an autopsy on $v it turned out they were secretly a $animal in a human suit";
 			},
@@ -505,11 +505,11 @@ sub evidence {
 		push @x, (
 			$f->{title} . " has secret messages encoded in it with numerology",
 			$f->{title} . " is satanic",
-			sub { 
+			sub {
 				my $g = shady_group( $orig_meta );
 				$f->{author} . " has ties to $g";
 			},
-			sub { 
+			sub {
 				my $b = bad_place( $orig_meta );
 				$f->{author} . " got taken to $b for questioning";
 			},
@@ -541,7 +541,7 @@ sub evidence {
 		push @x, (
 			"everybody knows $mc is real",
 			sub { "$mc has been researched by ${ \ shady_group($orig_meta) } $time" },
-			sub {	"$mc was used to conceal ${ \ shady_group($orig_meta) } $time" },
+			sub { "$mc was used to conceal ${ \ shady_group($orig_meta) } $time" },
 			sub { "$mc was used to infiltrate ${ \ shady_group($orig_meta) }" },
 		);
 	}
@@ -839,11 +839,11 @@ sub theory {
 					my $consequence = _RANDOM_(
 						'disappears',
 						'is assassinated',
-						sub { 
+						sub {
 							my $badplace = bad_place( $orig_meta );
 							"is taken away to $badplace";
 						},
-						sub { 
+						sub {
 							my $badplace = bad_place( $orig_meta );
 							"has their mind wiped at $badplace";
 						},
@@ -946,7 +946,7 @@ sub theory {
 			
 			my $resource = precious_resource_with_quantity( $orig_meta );
 			
-			ucfirst "$group $have $resource."; 
+			ucfirst "$group $have $resource.";
 		},
 	);
 
