@@ -5,7 +5,7 @@ use warnings;
 package Acme::ConspiracyTheory::Random;
 
 our $AUTHORITY = 'cpan:TOBYINK';
-our $VERSION   = '0.001';
+our $VERSION   = '0.002';
 
 use Exporter::Shiny qw( theory );
 use List::Util 1.54 ();
