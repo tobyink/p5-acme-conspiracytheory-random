@@ -577,6 +577,38 @@ sub victim {
 	return $victim;
 }
 
+sub physicist {  # and chemists
+	my $orig_meta = shift // {};
+	
+	my $x = _RANDOM_(
+		'Nikola Tesla',
+		'Benjamin Franklin',
+		'Albert Einstein',
+		'Isaac Newton',
+		'Stephen Hawking',
+		'Henry Cavendish',
+	);
+	
+	_MERGE_( $orig_meta, physicist => $x );
+	return $x;
+}
+
+sub biologist {  # and medics
+	my $orig_meta = shift // {};
+	
+	my $x = _RANDOM_(
+		'Charles Darwin',
+		'Edward Jenner',
+		'Robert Koch',
+		'Edward Jenner',
+		'Carl Linneaus',
+		'Alexander Fleming',
+	);
+	
+	_MERGE_( $orig_meta, biologist => $x );
+	return $x;
+}
+
 sub evidence {
 	my $orig_meta = shift // {};
 	
@@ -594,7 +626,7 @@ sub evidence {
 		);
 	}
 	
-	if ( my $v = $orig_meta->{victim} ) {
+	if ( my $v = $orig_meta->{victim} // $orig_meta->{physicist} // $orig_meta->{biologist} ) {
 		push @x, (
 			"$v died too young",
 			"$v sent a letter containing the truth before dying",
@@ -610,6 +642,14 @@ sub evidence {
 				my $animal = real_animal( $orig_meta );
 				"when they did an autopsy on $v it turned out they were secretly a $animal in a human suit";
 			},
+		);
+	}
+
+	if ( my $v = $orig_meta->{physicist} // $orig_meta->{biologist} ) {
+		push @x, (
+			"$v isn't mentioned in Aristotle's writing",
+			"$v hasn't given a lecture in months",
+			"$v isn't taken seriously by TRUE SCIENTISTS",
 		);
 	}
 
@@ -730,6 +770,7 @@ sub evidence {
 		my $have      = $topic->{plural} ? 'have' : 'has';
 		push @x, (
 			"there's hidden clues in the Wikipedia page about $topicname",
+			"THEY let it slip during an edit war in a Wikipedia page about $topicname",
 			"Bible numerology has clues about $topicname",
 			"$topicname $have always been suspicious",
 			"$topicname $have connections to THEM",
@@ -865,6 +906,11 @@ sub hidden_truth {
 		sub {
 			my $objects = objects( $orig_meta );
 			"$objects are sentient";
+		},
+		sub {
+			my $things = _RANDOM_( 'electrons', 'protons' );
+			$orig_meta->{topic} = { name => $things, plural => 1 };
+			"$things are not real particles, they are just the terminal lines of a dieletric pulse";
 		},
 		sub {
 			my $celebrity = celebrity( $orig_meta );
@@ -1114,12 +1160,12 @@ sub theory {
 			
 			my $truth = hidden_truth( $orig_meta );
 			
-			my $explanation = _RANDOM_(
+			my $explanation = _UCFIRST_ _RANDOM_(
 				sub {
 					my $group2 = shady_group( $orig_meta );
 					$orig_meta->{antagonists} = $orig_meta->{shady_group};
 					
-					_UCFIRST_ "$victim learnt the truth from $group2";
+					"$victim learnt the truth from $group2";
 				},
 				"Nobody knows how $victim found out",
 				"$victim found out because they were the source of all knowledge",
@@ -1194,6 +1240,126 @@ sub theory {
 			my $resource = precious_resource_with_quantity( $orig_meta );
 			
 			_UCFIRST_ "$group $have $resource.";
+		},
+		sub {
+			my $group = shady_group( $orig_meta );
+			$orig_meta->{protagonists} = $orig_meta->{shady_group};
+			
+			my $physicist = physicist( $orig_meta );
+			
+			my $fact = _RANDOM_(
+				sub {
+					$orig_meta->{topic} = { name => 'bathroom scales', plural => 1 };
+					'electrons have mass';
+				},
+				sub {
+					$orig_meta->{topic} = { name => 'weighing scales', plural => 1 };
+					"protons don't have mass";
+				},
+				sub {
+					$orig_meta->{topic} = { name => 'water', plural => 0 };
+					'water is its own element';
+				},
+				sub {
+					$orig_meta->{topic} = { name => 'geocentrism', plural => 0 };
+					'the sun goes round the Earth';
+				},
+				sub {
+					$orig_meta->{topic} = { name => 'the moon', plural => 0 };
+					'the moon is a hologram';
+				},
+				sub {
+					$orig_meta->{topic} = { name => 'camembert', plural => 0 };
+					'the moon is made of cheese';
+				},
+				sub {
+					$orig_meta->{topic} = { name => 'the man in the moon', plural => 0 };
+					'the man in the moon is a real man';
+				},
+				sub {
+					$orig_meta->{topic} = { name => 'air', plural => 0 };
+					"air isn't real";
+				},
+				sub {
+					$orig_meta->{topic} = { name => 'vacuum cleaners', plural => 0 };
+					"space isn't a vacuum because then it would suck all the air";
+				},
+				sub {
+					$orig_meta->{topic} = { name => 'the firmament', plural => 0 };
+					"there is a dome over the flat Earth";
+				},
+				sub {
+					$orig_meta->{topic} = { name => 'Satan', plural => 0 };
+					'the axis of evil in the cosmic microwave background was put there by Satan';
+				},
+			);
+			
+			my $solution = _UCFIRST_ _RANDOM_(
+				"They paid $group to kill him.",
+				"$group helped cover up the truth.",
+				"$group threatened to kill him to keep him quiet.",
+				"He was a member of $group so they knew he would keep quiet.",
+			);
+			
+			my $destruction = _RANDOM_(
+				"all of modern physics",
+				'our understanding of the universe',
+				"the Big Bang 'theory'",
+			);
+			
+			_UCFIRST_ "$physicist discovered that $fact but the scientific establishment is suppressing it because it would destroy $destruction. $solution";
+		},
+		sub {
+			my $group = shady_group( $orig_meta );
+			$orig_meta->{protagonists} = $orig_meta->{shady_group};
+			
+			my $biologist = biologist( $orig_meta );
+			
+			my $fact = _RANDOM_(
+				sub {
+					$orig_meta->{topic} = { name => 'pandas', plural => 1 };
+					'pandas are really just fat racoons';
+				},
+				sub {
+					$orig_meta->{topic} = { name => 'spaghetti', plural => 1 };
+					"spaghetti is a type of worm";
+				},
+				sub {
+					$orig_meta->{celebrity} //= { name => 'Louis Armstrong', female => 0 };
+					$orig_meta->{topic} = { name => 'snakes', plural => 1 };
+					"snakes like jazz music";
+				},
+				sub {
+					$orig_meta->{real_place} //= 'Antarctica';
+					$orig_meta->{topic} = { name => 'penguins', plural => 1 };
+					"penguins can fly but they get nervous when people are watching";
+				},
+				sub {
+					$orig_meta->{topic} = { name => 'DNA', plural => 0 };
+					"the 10 commandments are encoded in human DNA";
+				},
+				sub {
+					$orig_meta->{topic} = { name => 'anger managemment', plural => 0 };
+					"wasps are just angry bees";
+				},
+			);
+			
+			my $solution = _UCFIRST_ _RANDOM_(
+				"They paid $group to kill him.",
+				"$group helped cover up the truth.",
+				"$group threatened to kill him to keep him quiet.",
+				"He was a member of $group so they knew he would keep quiet.",
+			);
+			
+			my $destruction = _RANDOM_(
+				"the 'theory' of evolution",
+				'modern medicine',
+				"the germ theory of disease",
+				"our understanding of DNA",
+				'creation science',
+			);
+			
+			_UCFIRST_ "$biologist discovered that $fact but the scientific establishment is suppressing it because it would destroy $destruction. $solution";
 		},
 		sub {
 			my $group = shady_group( $orig_meta );
