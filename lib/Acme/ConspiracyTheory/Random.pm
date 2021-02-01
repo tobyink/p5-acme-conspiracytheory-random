@@ -85,6 +85,7 @@ sub shady_group {
 			{ plural => 0, name => 'the global financial elite' },
 			{ plural => 0, name => 'the global scientific elite' },
 			{ plural => 0, name => 'Big Pharma' },
+			{ plural => 0, name => 'Big Tobacco' },
 			{ plural => 1, name => 'the lizard people', shortname => 'the lizardmen' },
 			{ plural => 1, name => 'the grey aliens', shortname => 'the aliens' },
 			{ plural => 1, name => 'the big Hollywood studios', shortname => 'Hollywood' },
@@ -106,6 +107,8 @@ sub shady_group {
 			{ plural => 0, name => 'Goldman Sachs' },
 			{ plural => 0, name => 'the London Stock Exchange' },
 			{ plural => 0, name => 'the New York Stock Exchange' },
+			{ plural => 1, name => 'feminists' },
+			{ plural => 1, name => 'Socialists' },
 			sub {
 				my $planet = _RANDOM_(
 					['Nibiru', 'the Nibiruans'],
@@ -889,10 +892,116 @@ sub hidden_truth {
 	my $orig_meta = shift // {};
 	
 	my $truth = _RANDOM_(
-		'the Earth is flat',
-		'space is fake',
-		'God is real',
-		'reincarnation is true',
+		sub { # wrap classics in a sub so they don't come up too often
+			_RANDOM_(
+				sub {
+					$orig_meta->{topic} = { name => 'geology', plural => 0 };
+					'the Earth is flat';
+				},
+				sub {
+					$orig_meta->{topic} = { name => 'Inner Space (1987)', plural => 0 };
+					'space is fake';
+				},
+				sub {
+					$orig_meta->{topic} = { name => 'theology', plural => 0 };
+					'God is real';
+				},
+				sub {
+					$orig_meta->{topic} = { name => 'Buddhism', plural => 0 };
+					'reincarnation is true';
+				},
+				sub {
+					$orig_meta->{topic} = { name => 'germs', plural => 1 };
+					"germs aren't real";
+				},
+				sub {
+					$orig_meta->{topic} = { name => 'viruses', plural => 1 };
+					"viruses aren't real";
+				},
+				sub {
+					$orig_meta->{topic} = { name => 'MKUltra', plural => 1 };
+					"MKUltra is still happening";
+				},
+				sub {
+					$orig_meta->{topic} = { name => 'Jeffrey Epstein', plural => 1 };
+					"Epstein didn't kill himself";
+				},
+				sub {
+					$orig_meta->{topic} = { name => 'Stonehenge', plural => 0 };
+					$orig_meta->{random_place} //= 'Somerset';
+					"the aliens built Stonehenge";
+				},
+				sub {
+					$orig_meta->{topic} = { name => 'the Sphinx', plural => 0 };
+					$orig_meta->{random_place} //= 'Egypt';
+					"the aliens built the Pyramids";
+				},
+				sub {
+					$orig_meta->{topic} = { name => 'Loch Ness', plural => 0 };
+					$orig_meta->{random_place} //= 'Scotland';
+					"the Loch Ness monster is real";
+				},
+				sub {
+					$orig_meta->{topic} = { name => 'grain farming', plural => 0 };
+					$orig_meta->{random_place} //= 'Alabama';
+					"crop circles are caused by aliens";
+				},
+				sub {
+					$orig_meta->{topic} = { name => 'kidnapping', plural => 0 };
+					$orig_meta->{random_place} //= 'Alabama';
+					"aliens abduct people for probing";
+				},
+				sub {
+					$orig_meta->{topic} = { name => 'steal beams', plural => 1 };
+					$orig_meta->{random_place} //= 'New York';
+					"9/11 was an inside job";
+				},
+				sub {
+					$orig_meta->{topic} = { name => 'glaciers', plural => 1 };
+					$orig_meta->{random_place} //= 'Greenland';
+					"global warming is a hoax";
+				},
+				sub {
+					$orig_meta->{topic} = { name => 'gas chambers', plural => 1 };
+					$orig_meta->{random_place} //= 'Germany';
+					"the holocaust never happened";
+				},
+				sub {
+					$orig_meta->{topic} = { name => 'fascism', plural => 0 };
+					$orig_meta->{random_place} //= 'Australia';
+					"Antifa International have been starting wildfires";
+				},
+				sub {
+					$orig_meta->{topic} = { name => 'phantom time', plural => 0 };
+					"the years between 614 and 911 never happened";
+				},
+				sub {
+					$orig_meta->{topic} = { name => 'Nazis', plural => 1 };
+					"there is a Nazi base on the moon";
+				},
+				sub {
+					$orig_meta->{topic} = { name => 'Nazis', plural => 1 };
+					"there is a Nazi base in Antarctica";
+				},
+			);
+		},
+		sub {
+			$orig_meta->{topic} = { name => 'the Mandela effect', plural => 0 };
+			_RANDOM_(
+				'Looney Tunes used to be Looney Toons',
+				'the Berenstain Bears used to be spelled Berenstein',
+				'Curious George used to have a tail',
+				'Febreze used to have another E in it',
+				'Froot Loops used to be Fruit Loops',
+				'the Monopoly man is supposed to have a monacle',
+				'Kitkat used to have a hyphen',
+				'the Mona Lisa used to smile more',
+				'C-3PO never used to have a silver leg',
+				'Darth Vader said Luke I Am Your Father',
+				'We Are the Champions used to say "of the world" at the end',
+				'the USA used to have 52 states',
+			);
+		},
 		sub {
 			my $cryptids = cryptids( $orig_meta );
 			"$cryptids are real";
@@ -901,14 +1010,6 @@ sub hidden_truth {
 			my $cryptids = cryptids( $orig_meta );
 			my $group    = shady_group( $orig_meta );
 			"$group are $cryptids";
-		},
-		sub {
-			$orig_meta->{topic} = { name => 'germs', plural => 1 };
-			"germs aren't real"
-		},
-		sub {
-			$orig_meta->{topic} = { name => 'viruses', plural => 1 };
-			"viruses aren't real"
 		},
 		sub {
 			my $objects = objects( $orig_meta );
@@ -1354,6 +1455,14 @@ sub theory {
 				sub {
 					$orig_meta->{topic} = { name => 'DNA', plural => 0 };
 					"the 10 commandments are encoded in human DNA";
+				},
+				sub {
+					$orig_meta->{topic} = { name => 'essential oils', plural => 1 };
+					"essential oils cure all diseases";
+				},
+				sub {
+					$orig_meta->{topic} = { name => 'vaccines', plural => 1 };
+					"essential oils cure autism";
 				},
 				sub {
 					$orig_meta->{topic} = { name => 'anger managemment', plural => 0 };
