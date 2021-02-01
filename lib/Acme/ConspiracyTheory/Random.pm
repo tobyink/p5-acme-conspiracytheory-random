@@ -1359,7 +1359,12 @@ sub theory {
 				},
 			);
 			
-			_UCFIRST_ "$truth but nobody knows because $sheeple.";
+			_UCFIRST_ _RANDOM_(
+				"$truth but nobody knows because $sheeple.",
+				"$truth but nobody believes me because $sheeple.",
+				"$truth but everybody ignores it because $sheeple.",
+				"$truth but people are blind because $sheeple.",
+			);
 		},
 		sub {
 			my $fiction = fiction( $orig_meta );
