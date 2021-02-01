@@ -222,6 +222,8 @@ sub chemicals {
 		'Diet Coke',
 		'heavy hydrogen',
 		'5G',
+		'antimatter',
+		'dark matter',
 	);
 	
 	_MERGE_( $orig_meta, chemicals => $chemicals );
@@ -1277,6 +1279,11 @@ sub theory {
 					'the man in the moon is a real man';
 				},
 				sub {
+					my $chem = chemicals( $orig_meta );
+					$orig_meta->{topic} = { name => 'the periodic table', plural => 0 };
+					"element 119 is $chem";
+				},
+				sub {
 					$orig_meta->{topic} = { name => 'air', plural => 0 };
 					"air isn't real";
 				},
@@ -1341,6 +1348,11 @@ sub theory {
 				sub {
 					$orig_meta->{topic} = { name => 'anger managemment', plural => 0 };
 					"wasps are just angry bees";
+				},
+				sub {
+					my $animal = real_animal( $orig_meta );
+					$orig_meta->{topic} = { name => 'space flight', plural => 0 };
+					"$animal DNA comes from space";
 				},
 			);
 			
