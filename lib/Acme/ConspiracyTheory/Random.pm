@@ -1282,6 +1282,7 @@ sub theory {
 							my $badplace = bad_place( $orig_meta );
 							"has their mind wiped at $badplace";
 						},
+						'is given a blue pill',
 					);
 					"Everybody who finds out why $consequence";
 				},
@@ -1314,6 +1315,7 @@ sub theory {
 				"$victim found out because they were the source of all knowledge",
 				"$victim found out using time travel",
 				"$victim found out using mind reading",
+				"$victim took the red pill",
 			);
 			
 			_UCFIRST_ "$group killed $victim to hide the truth that $truth. $explanation.";
