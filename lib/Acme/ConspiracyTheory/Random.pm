@@ -547,10 +547,22 @@ sub misinformation {
 			my $place = random_place( $orig_meta );
 			"$place is real";
 		},
-		'the Earth is 4.5 billion years old',
-		'the universe is 14 billion years old',
-		'dinosaurs are real',
-		'birds are real',
+		sub {
+			$orig_meta->{topic} = { name => 'carbon dating', plural => 0 };
+			'the Earth is 4.5 billion years old';
+		},
+		sub {
+			$orig_meta->{topic} = { name => 'radiocarbon dating', plural => 0 };
+			'the universe is 14 billion years old';
+		},
+		sub {
+			$orig_meta->{topic} = { name => 'pigeons', plural => 1 };
+			'dinosaurs are real';
+		},
+		sub {
+			$orig_meta->{topic} = { name => 'surveillance drones', plural => 1 };
+			'birds are real';
+		},
 	);
 	
 	_MERGE_( $orig_meta, misinformation => $info );
@@ -1003,6 +1015,19 @@ sub hidden_truth {
 			);
 		},
 		sub {
+			$orig_meta->{topic} = { name => 'the crusades', plural => 1 };
+			my $subst = _RANDOM_(
+				'TikTok',
+				'Twitter',
+				'the world wars',
+				'intergalactic warfare',
+				'the white genocide',
+				'colonization',
+				'robot wars',
+			);
+			"the crusades never stopped, they were just replaced with $subst";
+		},
+		sub {
 			my $cryptids = cryptids( $orig_meta );
 			"$cryptids are real";
 		},
@@ -1224,6 +1249,11 @@ sub theory {
 				'',
 				" But the truth shall not be buried!",
 				" Don't let yourself be deceived!",
+				" Take the red pill!",
+				" Believing $misinfo is taking the blue pill!",
+				" Take the red pill - $truth!",
+				" Believing $misinfo is for blue pill sheeple!",
+				" Open your mind!",
 			);
 			
 			_UCFIRST_ "$group $is spreading the lie that $misinfo to distract the public from the truth that $truth.$exclaim";
@@ -1409,6 +1439,14 @@ sub theory {
 				sub {
 					$orig_meta->{topic} = { name => 'Satan', plural => 0 };
 					'the axis of evil in the cosmic microwave background was put there by Satan';
+				},
+				sub {
+					$orig_meta->{topic} = { name => 'the zodiac', plural => 0 };
+					'astrology has been scientifically verified';
+				},
+				sub {
+					$orig_meta->{topic} = { name => 'the year of the dragon', plural => 0 };
+					'the Chinese zodiac can predict the future';
 				},
 			);
 			
