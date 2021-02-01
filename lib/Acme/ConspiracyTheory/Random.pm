@@ -1365,7 +1365,15 @@ sub theory {
 			my $fiction = fiction( $orig_meta );
 			my $truth = hidden_truth( $orig_meta );
 			
-			_UCFIRST_ "$fiction has a hidden message that $truth.";
+			_UCFIRST_ _RANDOM_(
+				"$fiction has a hidden message that $truth.",
+				"$fiction is just an allegory which shows that $truth.",
+				sub {
+					my $group = shady_group( $orig_meta );
+					$orig_meta->{protagonists} //= $orig_meta->{shady_group};
+					"$fiction was analysed with a computer by $group and it revealed $truth.",
+				},
+			);
 		},
 		sub {
 			my $group = shady_group( $orig_meta );
@@ -1375,16 +1383,52 @@ sub theory {
 			my $place    = random_place( $orig_meta );
 			my $darklord = dark_lord( $orig_meta );
 			
-			_UCFIRST_ "$group $are abducting orphan children from $place to sacrifice them to $darklord.";
+			my $getting_kids = _RANDOM_(
+				'abducting orphan children',
+				'buying child slaves',
+				'cloning babies',
+				'growing babies in test tubes',
+				'breeding babies',
+				'buying kids from poor families',
+				'stealing babies',
+				sub {
+					$orig_meta->{topic} //= { name => 'adoption', plural => 0 };
+					'adopting babies';
+				},
+				sub {
+					$orig_meta->{topic} //= { name => 'adoption', plural => 0 };
+					'adopting kids';
+				},
+			);
+			
+			my $sacrifice = _RANDOM_(
+				'sacrifice them',
+				'ritually sacrifice them',
+				'offer them',
+				'offer them as a blood sacrifice',
+				'offer them as brides',
+				'offer them as sex slaves',
+				'feed them',
+				'sell them',
+				'mass sacrifice them',
+			);
+			
+			_UCFIRST_ "$group $are $getting_kids in $place to $sacrifice to $darklord.";
 		},
 		sub {
 			my $group = shady_group( $orig_meta );
 			$orig_meta->{protagonists} = $orig_meta->{shady_group};
 			my $have = $orig_meta->{protagonists}->{plural} ? 'have' : 'has';
+			my $are  = $orig_meta->{protagonists}->{plural} ? 'are'  : 'is';
 			
 			my $resource = precious_resource_with_quantity( $orig_meta );
 			
-			_UCFIRST_ "$group $have $resource.";
+			_UCFIRST_ _RANDOM_(
+				"$group $have $resource.",
+				"$group $are trying to obtain $resource.",
+				"$group $are in possession of $resource.",
+				"$group $have taken a delivery of $resource.",
+			);
 		},
 		sub {
 			my $group = shady_group( $orig_meta );
@@ -1553,7 +1597,12 @@ sub theory {
 			my $place  = random_place( $orig_meta );
 			my $truth1 = hidden_truth( $orig_meta );
 			
-			_UCFIRST_ "It is common knowledge in $place that $truth1.";
+			_UCFIRST_ _RANDOM_(
+				"It is common knowledge in $place that $truth1.",
+				"They teach $truth1 at schools in $place.",
+				"Everybody in $place knows that $truth1.",
+				"People in $place found out that $truth1.",
+			);
 		},
 		sub {
 			my $celeb  = celebrity( $orig_meta );
@@ -1582,7 +1631,14 @@ sub theory {
 			my $group = shady_group( $orig_meta );
 			$orig_meta->{protagonists} = $orig_meta->{shady_group};
 			
-			_UCFIRST_ "$celeb is a member of $group.";
+			_UCFIRST_ _RANDOM_(
+				"$celeb is a member of $group.",
+				"$celeb is a former member of $group.",
+				"$celeb was thrown out of $group.",
+				"$celeb infiltrated $group.",
+				"$celeb is the leader of $group.",
+				"$celeb is secretly worshipped by $group.",
+			);
 		},
 	);
 
