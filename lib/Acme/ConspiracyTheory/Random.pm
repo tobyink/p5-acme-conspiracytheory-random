@@ -101,6 +101,11 @@ sub shady_group {
 			{ plural => 0, name => 'Twitter' },
 			{ plural => 0, name => 'Facebook' },
 			{ plural => 0, name => 'Google' },
+			{ plural => 0, name => 'the Wall Street establishment', shortname => 'Wall Street' },
+			{ plural => 1, name => 'people at 10 Downing Street', shortname => "Downing Street" },
+			{ plural => 0, name => 'Goldman Sachs' },
+			{ plural => 0, name => 'the London Stock Exchange' },
+			{ plural => 0, name => 'the New York Stock Exchange' },
 			sub {
 				my $planet = _RANDOM_(
 					['Nibiru', 'the Nibiruans'],
@@ -918,6 +923,11 @@ sub hidden_truth {
 			my $celebrity = celebrity( $orig_meta );
 			my $long_time = a_long_time( $orig_meta );
 			"$celebrity has been drinking the blood of infants $long_time to stay looking young";
+		},
+		sub {
+			my $celebrity = celebrity( $orig_meta );
+			$orig_meta->{topic} = { name => 'cross-dressing', plural => 0 };
+			"$celebrity is transsexual";
 		},
 		sub {
 			my $celebrity = celebrity( $orig_meta );
