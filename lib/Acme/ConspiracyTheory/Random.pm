@@ -163,6 +163,24 @@ sub objects {
 	return $objects;
 }
 
+sub dark_lord {
+	my $orig_meta = shift // {};
+	
+	my $x = _RANDOM_(
+		'the dark lord',
+		'Beelzebub',
+		'Lord Vader',
+		'Lord Satan',
+		'Thanos',
+		'the devil',
+		'the evil one',
+		'the almighty',
+	);
+	
+	_MERGE_( $orig_meta, dark_lord => $x );
+	return $x;
+}
+
 sub disease {
 	my $orig_meta = shift // {};
 	
@@ -626,7 +644,7 @@ sub evidence {
 			"the $animal looks kind of weird",
 			"nobody has ever seen a $animal in real life",
 			"the $animal obviously isn't native to this planet",
-			sub { "${ \ shady_group() } sacrifice $animal to the dark lord" },
+			sub {	"${ \ shady_group($orig_meta) } sacrifice $animal${\'s'} to ${ \ dark_lord($orig_meta) }" },
 			"the $animal looks bigger in real life",
 			"the $animal makes a funny noise",
 			"Alex Jones did a podcast about the $animal",
@@ -1137,9 +1155,10 @@ sub theory {
 			$orig_meta->{protagonists} = $orig_meta->{shady_group};
 			my $are = $orig_meta->{protagonists}->{plural} ? 'are' : 'is';
 			
-			my $place = random_place( $orig_meta );
+			my $place    = random_place( $orig_meta );
+			my $darklord = dark_lord( $orig_meta );
 			
-			_UCFIRST_ "$group $are abducting orphan children from $place to sacrifice them to their dark overlord.";
+			_UCFIRST_ "$group $are abducting orphan children from $place to sacrifice them to $darklord.";
 		},
 		sub {
 			my $group = shady_group( $orig_meta );
@@ -1216,6 +1235,9 @@ sub theory {
 			},
 			"$group2 $know the truth but $group1 have threatened them to keep them silent.",
 			"$group2 were helping them until $group1 betrayed them.",
+			"$group2 were helping them for a while.",
+			"$group2 were originally opposed to this but they're now in on it.",
+			"$group2 are trying to get evidence to prove it.",
 		);
 	}
 
