@@ -20,6 +20,12 @@ sub _MERGE_ {
 	%$orig_meta = ( %$orig_meta, %new );
 }
 
+sub _UCFIRST_ ($) {
+	( my $str = shift )
+		=~ s/ (\w) / uc($1) /xe;
+	$str;
+}
+
 sub celebrity {
 	my $orig_meta = shift // {};
 	my $celeb = _RANDOM_(
@@ -35,6 +41,9 @@ sub celebrity {
 		{ female => 0, name => 'Johnny Depp' },
 		{ female => 0, name => 'Q' },
 		{ female => 1, name => 'Madonna' },
+		{ female => 0, name => 'Sir Paul McCartney' },
+		{ female => 1, name => 'Lady Gaga' },
+		{ female => 1, name => 'Margaret Thatcher' },
 	);
 	_MERGE_( $orig_meta, celebrity => $celeb );
 	return $celeb->{name};
@@ -94,6 +103,7 @@ sub shady_group {
 			{ plural => 0, name => 'Google' },
 		);
 		
+		no warnings;
 		redo PICK
 			if ( $orig_meta->{protagonists} and $orig_meta->{protagonists}{name} eq $xx->{name} )
 			|| ( $orig_meta->{antagonists}  and $orig_meta->{antagonists}{name}  eq $xx->{name} );
@@ -115,6 +125,7 @@ sub real_animal {
 		'toucan',
 		'whale',
 		'zebra',
+		'frog',
 	);
 	
 	_MERGE_( $orig_meta, real_animal => $animal );
@@ -129,6 +140,7 @@ sub fake_animal {
 		'bigfoot',
 		'mermaid',
 		'werewolf',
+		'dragon',
 	);
 	
 	_MERGE_( $orig_meta, fake_animal => $animal );
@@ -165,6 +177,58 @@ sub disease {
 	
 	_MERGE_( $orig_meta, disease => $disease );
 	return $disease;
+}
+
+sub chemicals {
+	my $orig_meta = shift // {};
+	
+	my $chemicals = _RANDOM_(
+		'oestrogen',
+		'testosterone',
+		'acid',
+		'birth-control',
+		'fertilizer',
+		'Diet Coke',
+		'heavy hydrogen',
+		'5G',
+	);
+	
+	_MERGE_( $orig_meta, chemicals => $chemicals );
+	return $chemicals;
+}
+
+sub food {
+	my $orig_meta = shift // {};
+	
+	my $food = _RANDOM_(
+		'apples',
+		'Big Macs',
+		'KFC family buckets',
+		'most wines',
+		'Kraft instant mac and cheese boxes',
+		'bananas',
+	);
+	
+	_MERGE_( $orig_meta, food => $food );
+	return $food;
+}
+
+sub attribute {
+	my $orig_meta = shift // {};
+	
+	my $attr = _RANDOM_(
+		'gay',
+		'insane',
+		'infertile',
+		'immobile',
+		'horny',
+		'female',
+		'fat',
+		'flourescent',
+	);
+	
+	_MERGE_( $orig_meta, attribute => $attr );
+	return $attr;
 }
 
 sub artifact {
@@ -327,6 +391,7 @@ sub precious_resource_with_quantity {
 		'unimaginable quantities',
 		'unspeakable quantities',
 		'5.3 metric pounds',
+		'6.9 Imperial litres',
 		'666 tonnes',
 	);
 	"$quantity of $resource";
@@ -564,6 +629,7 @@ sub evidence {
 			sub { "${ \ shady_group() } sacrifice $animal to the dark lord" },
 			"the $animal looks bigger in real life",
 			"the $animal makes a funny noise",
+			"Alex Jones did a podcast about the $animal",
 		);
 	}
 	
@@ -595,6 +661,22 @@ sub evidence {
 		);
 	}
 
+	if ( my $f = $orig_meta->{food} ) {
+		push @x, (
+			"$f don't taste like they used to",
+			"$f smell funny",
+			"I don't like $f",
+		);
+	}
+
+	if ( my $chem = $orig_meta->{chemicals} ) {
+		push @x, (
+			"$chem isn't on the periodic table",
+			"$chem isn't real",
+			"you'd have to be stupid to think $chem is real",
+		);
+	}
+
 	if ( my $r = $orig_meta->{precious_resource} ) {
 		my $bad = $orig_meta->{antagonist}{name}
 			// $orig_meta->{protagonist}{name}
@@ -607,6 +689,7 @@ sub evidence {
 			"have you ever seen $r for real with your own eyes",
 			"$r is so damn expensive",
 			"$r is really rare",
+			"Alex Jones says $bad is linked to $r",
 		);
 	}
 
@@ -639,6 +722,10 @@ sub evidence {
 		my $name   = $orig_meta->{$actor}{shortname} // $orig_meta->{$actor}{name};
 		my $have   = $orig_meta->{$actor}{plural} ? 'have' : 'has';
 		my $are    = $orig_meta->{$actor}{plural} ? 'are'  : 'is';
+		my $s      = $orig_meta->{$actor}{plural} ? ''     : 's';
+		
+		( my $fbname = $name ) =~ s/^the //i;
+		$fbname = _UCFIRST_ $fbname;
 		
 		push @x, (
 			"$name $have included it in their manifesto",
@@ -646,7 +733,10 @@ sub evidence {
 			"$name $are always untrustworthy",
 			"$name $are controlling everything",
 			"if you Google for $name there's loads of info",
-			"the '$name Truth' Facebook page says so",
+			"the '$fbname Truth' Facebook page says so",
+			"the '$fbname Exposed' website says so",
+			"$name even admit$s it",
+			"$name deny$s it but that is obvious lies",
 		);
 		
 		if ( my $animal = $orig_meta->{real_animal} // $orig_meta->{fake_animal} ) {
@@ -676,26 +766,26 @@ sub evidence {
 		return _RANDOM_(
 			"You can tell this is the truth because $e1 and $e2.",
 			"I know because $e1 and $e2.",
-			"You just need to connect the dots. " . ucfirst( "$e1 and $e2." ),
-			"I used to be asleep like you, but then I saw the clues. " . ucfirst( "$e1 and $e2. WAKE UP!" ),
-			"THEY HIDE THE TRUTH IN PLAIN SIGHT. " . ucfirst( "$e1 and $e2." ),
-			"You won't believe how deep the rabbit hole goes. " . ucfirst( "$e1 and $e2." ),
-			ucfirst( "$e1 and $e2. It's obvious if you connect the dots." ),
-			ucfirst( "$e1 and $e2. They leave clues to mock us." ),
-			ucfirst( "$e1 and $e2. Isn't it obvious?" ),
-			ucfirst( "$e1 and $e2. Wake up, sheeple!" ),
+			"You just need to connect the dots. " . _UCFIRST_( "$e1 and $e2." ),
+			"I used to be asleep like you, but then I saw the clues. " . _UCFIRST_( "$e1 and $e2. WAKE UP!" ),
+			"THEY HIDE THE TRUTH IN PLAIN SIGHT. " . _UCFIRST_( "$e1 and $e2." ),
+			"You won't believe how deep the rabbit hole goes. " . _UCFIRST_( "$e1 and $e2." ),
+			_UCFIRST_( "$e1 and $e2. It's obvious if you connect the dots." ),
+			_UCFIRST_( "$e1 and $e2. They leave clues to mock us." ),
+			_UCFIRST_( "$e1 and $e2. Isn't it obvious?" ),
+			_UCFIRST_( "$e1 and $e2. Wake up, sheeple!" ),
 			sub {
 				my $e3 = uc _RANDOM_(@x);
-				ucfirst( "$e1 and $e2. Isn't it obvious? $e3!" );
+				_UCFIRST_( "$e1 and $e2. Isn't it obvious? $e3!" );
 			},
 			sub {
 				my $e3 = uc _RANDOM_(@x);
-				ucfirst( "$e1 and $e2. They leave clues to mock us! $e3! MOCK! MOCK!" );
+				_UCFIRST_( "$e1 and $e2. They leave clues to mock us! $e3! MOCK! MOCK!" );
 			},
 			sub {
 				my $t = {};
 				theory($t);
-				ucfirst( "$e1 and $e2. Isn't it obvious? Also: " . $t->{base_theory} );
+				_UCFIRST_( "$e1 and $e2. Isn't it obvious? Also: " . $t->{base_theory} );
 			},
 		);
 	}
@@ -703,7 +793,7 @@ sub evidence {
 		my ( $e1 ) = @evidences;
 		return _RANDOM_(
 			"You can tell the truth because $e1.",
-			ucfirst("$e1 and that reveals the truth."),
+			_UCFIRST_("$e1 and that reveals the truth."),
 			"The truth is obvious if you're not a sheep - $e1.",
 		);
 	}
@@ -750,6 +840,24 @@ sub hidden_truth {
 			"$celebrity has been drinking the blood of infants $long_time to stay looking young";
 		},
 		sub {
+			my $celebrity = celebrity( $orig_meta );
+			my $consequence = _RANDOM_(
+				sub {
+					$orig_meta->{topic} = { name => 'robotics', plural => 0 };
+					'replaced by a robot';
+				},
+				sub {
+					$orig_meta->{topic} = { name => 'impersonation', plural => 0 };
+					'replaced by a look-alike';
+				},
+				sub {
+					$orig_meta->{topic} = { name => 'blackmail', plural => 0 };
+					'blackmailed into silence';
+				},
+			);
+			"$celebrity has been $consequence";
+		},
+		sub {
 			my $objects = objects( $orig_meta );
 			my $group   = shady_group( $orig_meta );
 			"$objects were invented by $group";
@@ -779,13 +887,32 @@ sub hidden_truth {
 			"the $animal is a fake animal, engineered by $group";
 		},
 		sub {
+			my $chemicals = chemicals( $orig_meta );
+			my $animal    = real_animal( $orig_meta );
+			my $attribute = attribute( $orig_meta );
+			"the $chemicals in the water is turning the $animal" . "s $attribute";
+		},
+		sub {
+			my $chemicals = chemicals( $orig_meta );
+			my $food      = food( $orig_meta );
+			"$food are full of $chemicals";
+		},
+		sub {
 			my $animal = real_animal( $orig_meta );
 			"the $animal originally comes from another planet";
 		},
 		sub {
 			my $animal = real_animal( $orig_meta );
 			my $group  = shady_group( $orig_meta );
-			"the $animal is a fake animal and is just people in costumes";
+			my $stupid = _RANDOM_(
+				'people in costumes',
+				'animatronics',
+				'CGI',
+				'highly coordinated swarms of bees',
+				'holograms',
+				'a mirage',
+			);
+			"the $animal is a fake animal and is just $stupid";
 		},
 		sub {
 			my $animal = fake_animal( $orig_meta );
@@ -850,6 +977,18 @@ sub hidden_truth {
 			"$victim was an inter-dimensional being";
 		},
 		sub {
+			my $chem = chemicals( $orig_meta );
+			my $stupid = _RANDOM_(
+				'water mixed with food-colouring',
+				'water that they put in the microwave',
+				'water that came from a goat\'s insides',
+				'water that they used magic on',
+				'made of fairy dust',
+				'melted potato starch',
+			);
+			"$chem is really just $stupid";
+		},
+		sub {
 			my $fiction = fiction( $orig_meta );
 			"$fiction is historically accurate";
 		},
@@ -884,7 +1023,7 @@ sub theory {
 				" Don't let yourself be deceived!",
 			);
 			
-			ucfirst "$group $is spreading the lie that $misinfo to distract the public from the truth that $truth.$exclaim";
+			_UCFIRST_ "$group $is spreading the lie that $misinfo to distract the public from the truth that $truth.$exclaim";
 		},
 		sub {
 			my $protagonists = shady_group( $orig_meta );
@@ -917,11 +1056,11 @@ sub theory {
 					my $truth = hidden_truth();
 					my $pro   = $orig_meta->{protagonists}{shortname} // $protagonists;
 					my $ant   = $orig_meta->{antagonists}{shortname} // $antagonists;
-					ucfirst "$pro want to expose the truth that $truth and $ant will do whatever they can to stop them";
+					_UCFIRST_ "$pro want to expose the truth that $truth and $ant will do whatever they can to stop them";
 				},
 			);
 			
-			ucfirst "$protagonists and $antagonists have been in a secret war with each other $time. $war_reason."
+			_UCFIRST_ "$protagonists and $antagonists have been in a secret war with each other $time. $war_reason."
 		},
 		sub {
 			my $group = shady_group( $orig_meta );
@@ -936,7 +1075,7 @@ sub theory {
 					my $group2 = shady_group( $orig_meta );
 					$orig_meta->{antagonists} = $orig_meta->{shady_group};
 					
-					ucfirst "$victim learnt the truth from $group2";
+					_UCFIRST_ "$victim learnt the truth from $group2";
 				},
 				"Nobody knows how $victim found out",
 				"$victim found out because they were the source of all knowledge",
@@ -944,7 +1083,7 @@ sub theory {
 				"$victim found out using mind reading",
 			);
 			
-			ucfirst "$group killed $victim to hide the truth that $truth. $explanation.";
+			_UCFIRST_ "$group killed $victim to hide the truth that $truth. $explanation.";
 		},
 		sub {
 			my $truth = hidden_truth( $orig_meta );
@@ -985,13 +1124,13 @@ sub theory {
 				},
 			);
 			
-			ucfirst "$truth but nobody knows because $sheeple.";
+			_UCFIRST_ "$truth but nobody knows because $sheeple.";
 		},
 		sub {
 			my $fiction = fiction( $orig_meta );
 			my $truth = hidden_truth( $orig_meta );
 			
-			ucfirst "$fiction has a hidden message that $truth.";
+			_UCFIRST_ "$fiction has a hidden message that $truth.";
 		},
 		sub {
 			my $group = shady_group( $orig_meta );
@@ -1000,7 +1139,7 @@ sub theory {
 			
 			my $place = random_place( $orig_meta );
 			
-			ucfirst "$group $are abducting orphan children from $place to sacrifice them to their dark overlord.";
+			_UCFIRST_ "$group $are abducting orphan children from $place to sacrifice them to their dark overlord.";
 		},
 		sub {
 			my $group = shady_group( $orig_meta );
@@ -1009,7 +1148,59 @@ sub theory {
 			
 			my $resource = precious_resource_with_quantity( $orig_meta );
 			
-			ucfirst "$group $have $resource.";
+			_UCFIRST_ "$group $have $resource.";
+		},
+		sub {
+			my $group = shady_group( $orig_meta );
+			$orig_meta->{protagonists} = $orig_meta->{shady_group};
+			my $have = $orig_meta->{protagonists}->{plural} ? 'have' : 'has';
+			
+			my $place = random_place( $orig_meta );
+			
+			my $how = _RANDOM_(
+				"by diverting flights to $place to a Hollywood studio",
+				'using mirrors',
+				'by paying the UN',
+				'by talking with funny accents',
+				'by hacking satellites',
+			);
+			
+			_UCFIRST_ "$place is just a hologram created by $group who $have been hiding it for years $how.";
+		},
+		sub {
+			my $place  = random_place( $orig_meta );
+			my $truth1 = hidden_truth( $orig_meta );
+			
+			_UCFIRST_ "It is common knowledge in $place that $truth1.";
+		},
+		sub {
+			my $celeb  = celebrity( $orig_meta );
+			my $pronoun = $orig_meta->{celebrity}{female} ? 'she' : 'he';
+			my $truth1 = hidden_truth( $orig_meta );
+			my $group = shady_group( $orig_meta );
+			$orig_meta->{protagonists} = $orig_meta->{shady_group};
+			my $are = $orig_meta->{protagonists}->{plural} ? 'are' : 'is';
+			
+			my $silence = _RANDOM_(
+				"$pronoun will probably have to be eliminated",
+				"$pronoun is going to be killed if $pronoun isn't dead already",
+				"$pronoun is being paid to stay quiet",
+				"$pronoun has been replaced by a clone",
+				sub {
+					my $place = bad_place( $orig_meta );
+					"$pronoun has been imprisoned in $place";
+				},
+			);
+			
+			_UCFIRST_ "$celeb found out that $truth1 and $silence. " . _UCFIRST_ "$group $are protecting this secret.";
+		},
+		sub {
+			my $celeb  = celebrity( $orig_meta );
+			my $pronoun = $orig_meta->{celebrity}{female} ? 'she' : 'he';
+			my $group = shady_group( $orig_meta );
+			$orig_meta->{protagonists} = $orig_meta->{shady_group};
+			
+			_UCFIRST_ "$celeb is a member of $group.";
 		},
 	);
 
@@ -1018,7 +1209,7 @@ sub theory {
 		my $group2 = shady_group( $orig_meta );
 		$orig_meta->{antagonists} = $orig_meta->{shady_group};
 		my $know = $orig_meta->{antagonists}->{plural} ? 'know' : 'knows';
-		$theory .= " " . ucfirst _RANDOM_(
+		$theory .= " " . _UCFIRST_ _RANDOM_(
 			sub {
 				my $bribe = precious_resource_with_quantity( $orig_meta );
 				"$group2 $know the truth but $group1 have paid them off with $bribe.";
