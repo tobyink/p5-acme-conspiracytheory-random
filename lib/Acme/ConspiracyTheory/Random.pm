@@ -101,6 +101,17 @@ sub shady_group {
 			{ plural => 0, name => 'Twitter' },
 			{ plural => 0, name => 'Facebook' },
 			{ plural => 0, name => 'Google' },
+			sub {
+				my $planet = _RANDOM_(
+					['Nibiru', 'the Nibiruans'],
+					['Venus', 'the Venutians'],
+					['Mars', 'the Martians'],
+					['Pluto', 'the Plutonians'],
+					['the moon', 'the moonlings'],
+					['the Counter-Earth', 'the anti-Earthlings'],
+				);
+				{ plural => 1, name => "aliens from ".$planet->[0], shortname => $planet->[1] };
+			},
 		);
 		
 		no warnings;
@@ -126,6 +137,7 @@ sub real_animal {
 		'whale',
 		'zebra',
 		'frog',
+		'fish',
 	);
 	
 	_MERGE_( $orig_meta, real_animal => $animal );
@@ -141,6 +153,7 @@ sub fake_animal {
 		'mermaid',
 		'werewolf',
 		'dragon',
+		'wyvern',
 	);
 	
 	_MERGE_( $orig_meta, fake_animal => $animal );
@@ -487,6 +500,7 @@ sub misinformation {
 		'the Earth is round',
 		'the Earth goes around the sun',
 		'humans are animals',
+		'birds are dinosaurs',
 		sub {
 			$orig_meta->{topic} = { name => 'the moon', plural => 0 };
 			'men have walked on the moon';
@@ -1014,6 +1028,18 @@ sub hidden_truth {
 			my $fiction = fiction( $orig_meta );
 			my $victim = $orig_meta->{victim} // victim( $orig_meta );
 			"$fiction was really written by $victim";
+		},
+		sub {
+			my $p = random_place( $orig_meta );
+			my $extinct = _RANDOM_(
+				'dinosaur',
+				'mammoth',
+				'sabre-tooth tiger',
+				'Tasmanian tiger',
+				'pterodactyl',
+			);
+			$orig_meta->{real_animal} //= $extinct;
+			"the $extinct is not extinct and there is a colony in $p";
 		},
 	);
 	
