@@ -393,6 +393,7 @@ sub myth_place {
 		"Lucifer's crypt",
 		"Jesus's grave",
 		"Jesus's true birthplace",
+		'the entrance to the hollow Earth',
 	);
 	
 	_MERGE_( $orig_meta, myth_place => $place );
