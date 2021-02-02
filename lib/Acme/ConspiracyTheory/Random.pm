@@ -1989,7 +1989,7 @@ Acme::ConspiracyTheory::Random - random theories
 
 This module exports one function, C<< theory() >> which returns a string.
 
-=for html <img src="https://raw.githubusercontent.com/tobyink/p5-acme-conspiracytheory-random/master/assets/pepe-silvia.jpeg" alt="">
+=for html <p><img src="https://raw.githubusercontent.com/tobyink/p5-acme-conspiracytheory-random/master/assets/pepe-silvia.jpeg" alt=""></p>
 
 =head1 BUGS
 
