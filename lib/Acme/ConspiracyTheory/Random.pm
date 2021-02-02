@@ -1929,7 +1929,7 @@ sub numerology {
 		return sprintf(
 			"%s %s",
 			_RANDOM_(
-				'The numbers never lie',
+				'The numbers never lie.',
 				'Trust the numbers.',
 				'You can see the truth in the numbers.',
 			),
