@@ -720,14 +720,14 @@ sub clone {
 
 sub evidence {
 	my $redstring = shift // {};
-	my $website = website( $redstring );
+	
 	my @x = (
-		"there's a video about it on $website",
-		"there was something about it on $website",
+		"there's a video about it on YouTube",
+		sub { 'there was something about it on ' . website() },
 		"the voices told me",
 		"I had a dream",
-		"$website is censoring me",
-		"$website was down this morning",
+		sub { website() . ' is censoring me' },
+		sub { website() . ' was down this morning' },
 	);
 
 	if ( my $m = $redstring->{misinformation} ) {
