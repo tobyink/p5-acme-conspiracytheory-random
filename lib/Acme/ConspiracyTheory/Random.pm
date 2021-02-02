@@ -1702,7 +1702,7 @@ This module exports one function, C<< theory() >> which returns a string.
 =head1 BUGS
 
 Please report any bugs to
-L<http://rt.cpan.org/Dist/Display.html?Queue=Acme-ConspiracyTheory-Random>.
+L<https://github.com/tobyink/p5-acme-conspiracytheory-random/issues>.
 
 =head1 SEE ALSO
 
