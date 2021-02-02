@@ -881,11 +881,14 @@ sub evidence {
 	}
 
 	if ( my $r = $orig_meta->{precious_resource} ) {
-		my $bad = $orig_meta->{antagonist}{name}
-			// $orig_meta->{protagonist}{name}
-			// $orig_meta->{shady_group}{name}
-			// shady_group( $orig_meta );
-		my $are = $orig_meta->{$bad}->{plural} ? 'are' : 'is';
+		my ( $bad, $are );
+		$orig_meta->{shady_group}{name} or shady_group( $orig_meta );
+		foreach ( qw/ antagonist protagonist shady_group / ) {
+			if ( $orig_meta->{$_}{name} ) {
+				$bad = $orig_meta->{$_}{name};
+				$are = $orig_meta->{$_}{plural} ? 'are' : 'is';
+			}
+		}
 		push @x, (
 			"the Wikipedia entry for $r keeps getting edited by $bad",
 			"$bad keeps buying $r secretly on the stock market",
