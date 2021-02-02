@@ -1539,7 +1539,7 @@ sub theory {
 			my $fact = _RANDOM_(
 				sub {
 					$orig_meta->{topic} = { name => 'bathroom scales', plural => 1 };
-					'electrons have mass';
+					'electrons have more mass than protons';
 				},
 				sub {
 					$orig_meta->{topic} = { name => 'weighing scales', plural => 1 };
