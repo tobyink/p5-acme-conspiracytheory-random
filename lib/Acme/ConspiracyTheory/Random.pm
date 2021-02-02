@@ -727,6 +727,7 @@ sub evidence {
 	if ( my $p = $redstring->{myth_place} ) {
 		push @x, (
 			"there are clues about $p in the Bible",
+			"there are clues about $p in the Voynich manuscript",
 			"$p is on some old maps",
 			"$p is on Google Maps",
 		);
@@ -914,6 +915,7 @@ sub evidence {
 			"there's hidden clues in the Wikipedia page about $topicname",
 			"THEY let it slip during an edit war in a Wikipedia page about $topicname",
 			"Bible numerology has clues about $topicname",
+			"the Voynich manuscript has clues about $topicname",
 			"$topicname $have always been suspicious",
 			"$topicname $have connections to THEM",
 			"nobody really understands $topicname",
