@@ -5,7 +5,7 @@ use warnings;
 package Acme::ConspiracyTheory::Random;
 
 our $AUTHORITY = 'cpan:TOBYINK';
-our $VERSION   = '0.005';
+our $VERSION   = '0.006';
 
 use Exporter::Shiny qw( theory );
 use List::Util 1.54 ();
@@ -44,6 +44,9 @@ sub celebrity {
 		{ female => 0, name => 'Sir Paul McCartney' },
 		{ female => 1, name => 'Lady Gaga' },
 		{ female => 1, name => 'Margaret Thatcher' },
+		{ female => 0, name => 'George Soros' },
+		{ female => 1, name => 'Beyonce' },
+		{ female => 1, name => 'Whitney Houston' },
 	);
 	_MERGE_( $orig_meta, celebrity => $celeb );
 	return $celeb->{name};
@@ -105,8 +108,9 @@ sub shady_group {
 			{ plural => 0, name => 'the Wall Street establishment', shortname => 'Wall Street' },
 			{ plural => 1, name => 'people at 10 Downing Street', shortname => "Downing Street" },
 			{ plural => 0, name => 'Goldman Sachs' },
-			{ plural => 0, name => 'the London Stock Exchange' },
-			{ plural => 0, name => 'the New York Stock Exchange' },
+			{ plural => 0, name => 'Skull and Bones (Order 322)', shortname => 'the Order' },
+			{ plural => 0, name => 'the London Stock Exchange', shortname => 'LSE' },
+			{ plural => 0, name => 'the New York Stock Exchange', shortname => 'NYSE' },
 			{ plural => 1, name => 'feminists' },
 			{ plural => 1, name => 'Socialists' },
 			sub {
@@ -183,6 +187,39 @@ sub objects {
 	
 	_MERGE_( $orig_meta, objects => $objects );
 	return $objects;
+}
+
+sub shady_project {
+	my $orig_meta = shift // {};
+	
+	my $x = _RANDOM_(
+		'Project Blue Beam',
+		'The Plan',
+		'the Global Warming Hoax',
+		'the New Chronology',
+		'the Great Replacement',
+		'the LGBT Agenda',
+		'the Kalergi Plan',
+		'Eurabia',
+	);
+	
+	_MERGE_( $orig_meta, shady_project => $x );
+	return $x;
+}
+
+sub authority {
+	my $orig_meta = shift // {};
+	
+	my $x = _RANDOM_(
+		'the Supreme Court',
+		'the United Nations',
+		'the FBI',
+		'the CIA',
+		'NATO',
+	);
+	
+	_MERGE_( $orig_meta, authority => $x );
+	return $x;
 }
 
 sub dark_lord {
@@ -298,6 +335,7 @@ sub bad_place {
 		'Guantanamo Bay Detention Camp',
 		'Windsor Castle',
 		'The Pentagon',
+		'Denver International Airport',
 		'the basement of the Vatican',
 		sub { myth_place( $orig_meta ) },
 		sub {
@@ -668,6 +706,50 @@ sub evidence {
 		push @x, (
 			"they indoctrinate people about '$m' at schools and if it were the truth they wouldn't need to",
 			"'$m' gets pushed down our throats by mass media",
+		);
+	}
+	
+	if ( my $auth = $orig_meta->{authority} ) {
+		push @x, (
+			"$auth are the obvious people to go to",
+			"$auth are the only ones with the power to stop them",
+			"$auth are able to save us",
+		);
+	}
+
+	if ( my $p = $orig_meta->{myth_place} ) {
+		push @x, (
+			"there are clues about $p in the Bible",
+			"$p is on some old maps",
+			"$p is on Google Maps",
+		);
+	}
+
+	if ( my $art = $orig_meta->{artifact} ) {
+		push @x, (
+			"$art isn't in any museum",
+			"$art must be somewhere",
+			"$art is out there",
+			"$art can be found with GPS",
+		);
+	}
+
+	if ( my $proj = $orig_meta->{shady_project} ) {
+		push @x, (
+			"everybody knows $proj is happening soon",
+			"$proj is well-funded",
+			"$proj is an open secret",
+			"there is so much evidence for $proj",
+		);
+	}
+	
+	if ( my $dl = $orig_meta->{dark_lord} ) {
+		push @x, (
+			"$dl is known to be growing in power",
+			"$dl has never seemed more powerful",
+			"$dl needs to be getting power from somewhere",
+			"$dl told me",
+			"I have seen signs from $dl",
 		);
 	}
 	
@@ -1460,6 +1542,23 @@ sub theory {
 				"$group $are trying to obtain $resource.",
 				"$group $are in possession of $resource.",
 				"$group $have taken a delivery of $resource.",
+			);
+		},
+		sub {
+			my $group = shady_group( $orig_meta );
+			$orig_meta->{protagonists} = $orig_meta->{shady_group};
+			my $are  = $orig_meta->{protagonists}->{plural} ? 'are'  : 'is';
+			
+			my $project = shady_project( $orig_meta );
+			
+			_UCFIRST_ _RANDOM_(
+				"$group $are running $project.",
+				"$group $are in charge of $project.",
+				"$group $are working against $project.",
+				sub {
+					my $auth = authority( $orig_meta );
+					"$group $are investigating $project. They will soon have enough evidence to go to $auth.",
+				},
 			);
 		},
 		sub {
