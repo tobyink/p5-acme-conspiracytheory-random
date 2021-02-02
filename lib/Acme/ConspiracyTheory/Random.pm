@@ -319,6 +319,7 @@ sub artifact {
 		'Excalibur',
 		'the ark of the covenant',
 		"Jesus's foreskin",
+		'the Holy Prepuce',
 	);
 	
 	_MERGE_( $orig_meta, artifact => $artifact );
