@@ -401,6 +401,7 @@ sub myth_place {
 		"Jesus's grave",
 		"Jesus's true birthplace",
 		'the entrance to the hollow Earth',
+		'the REAL Stonehenge',
 	);
 	
 	_MERGE_( $redstring, myth_place => $place );
