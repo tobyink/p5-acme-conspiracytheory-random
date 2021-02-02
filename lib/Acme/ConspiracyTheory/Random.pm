@@ -162,6 +162,7 @@ sub fake_animal {
 		'werewolf',
 		'dragon',
 		'wyvern',
+		'yeti',
 	);
 	
 	_MERGE_( $orig_meta, fake_animal => $animal );
@@ -631,6 +632,28 @@ sub biologist {  # and medics
 	return $x;
 }
 
+sub clone {
+	my $orig_meta = shift // {};
+
+	my $x = _RANDOM_(
+		'alien',
+		'avatar',
+		'CGI',
+		'clone',
+		'cyborg',
+		'hologram',
+		'look-alike',
+		'robot',
+	);
+
+	_MERGE_( $orig_meta, clone => $x );
+
+	my $a = ($x =~ /^[aeiou]/i ? 'an' : 'a');
+
+	return ($a, $x);
+}
+
+
 sub evidence {
 	my $orig_meta = shift // {};
 	
@@ -652,7 +675,10 @@ sub evidence {
 		push @x, (
 			"$v died too young",
 			"$v sent a letter containing the truth before dying",
-			"when they did an autopsy on $v it turned out it was a robot",
+			sub {
+				my ($a, $clone) = clone( $orig_meta );
+				"when they did an autopsy on $v it turned out it was $a $clone",
+			},
 			"when they did an autopsy on $v it turned out it was an alien",
 			"they never did an autopsy on $v",
 			"$v wrote a will",
@@ -776,14 +802,15 @@ sub evidence {
 			// $orig_meta->{protagonist}{name}
 			// $orig_meta->{shady_group}{name}
 			// shady_group( $orig_meta );
+		my $are = $orig_meta->{$bad}->{plural} ? 'are' : 'is';
 		push @x, (
 			"the Wikipedia entry for $r keeps getting edited by $bad",
 			"$bad keeps buying $r secretly on the stock market",
 			"the global supply of $r is at an all time low",
 			"have you ever seen $r for real with your own eyes",
-			"$r is so damn expensive",
-			"$r is really rare",
-			"Alex Jones says $bad is linked to $r",
+			"$r $are so damn expensive",
+			"$r $are really rare",
+			"Alex Jones says $bad $are linked to $r",
 		);
 	}
 
@@ -1621,7 +1648,10 @@ sub theory {
 				"$pronoun will probably have to be eliminated",
 				"$pronoun is going to be killed if $pronoun isn't dead already",
 				"$pronoun is being paid to stay quiet",
-				"$pronoun has been replaced by a clone",
+				sub {
+					my ($a, $clone) = clone( $orig_meta );
+					"$pronoun has been replaced by $a $clone";
+				},
 				sub {
 					my $place = bad_place( $orig_meta );
 					"$pronoun has been imprisoned in $place";
