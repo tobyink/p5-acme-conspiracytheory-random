@@ -1871,12 +1871,76 @@ sub theory {
 	_MERGE_( $redstring, base_theory => $theory );
 	
 	my $evidence = evidence( $redstring );
-	
 	$theory .= " $evidence" if $evidence;
+
+	my $numerology = numerology( $redstring );
+	$theory .= " $numerology" if $numerology;
 
 	_MERGE_( $redstring, theory => $theory );
 
 	return $theory;
+}
+
+my %special_numbers = (
+	33   => '33 is associated with the masons',
+	42   => '42 is the answer to life, the universe, and everything',
+	45   => 'Donald Trump was the 45th President of the USA',
+	666  => '666 is the number of the beast',
+);
+
+sub numerology {
+	my $redstring = shift // {};
+	
+	my @strings = List::Util::uniq(
+		grep { length($_) <= 20 }
+		map { my $letters = uc( $_ ); $letters =~ s/[^A-Z]//g; $letters }
+		map {
+			/^(the )(.+)$/i ? $2 : $_
+		}
+		map {
+			ref( $_ ) ? grep( defined, $_->{name}, $_->{shortname}, $_->{title}, $_->{author} ) : $_
+		}
+		values( %$redstring )
+	);
+	
+	my %calcs;
+	foreach my $string ( @strings ) {
+		my @letters = split //, $string;
+		my @numbers = map ord($_) - 0x40, @letters;
+		my $sum     = List::Util::sum( @numbers );
+		
+		push @{ $calcs{$sum} ||= [] }, sprintf(
+			'%s = %s = %s',
+			join( '+', @letters ),
+			join( '+', @numbers ),
+			$sum,
+		);
+	}
+	
+	foreach my $key ( %special_numbers ) {
+		if ( $calcs{$key} ) {
+			push @{ $calcs{$key} }, $special_numbers{$key};
+		}
+	}
+	
+	my @wow = map { @$_ > 1 ? @$_ : () } values %calcs;
+	
+	if ( @wow ) {
+		return sprintf(
+			"%s %s",
+			_RANDOM_(
+				'The numbers never lie',
+				'Trust the numbers.',
+				'You can see the truth in the numbers.',
+			),
+			join(
+				'',
+				map( "$_. ", @wow ),
+			)
+		);
+	}
+	
+	return '';
 }
 
 1;
