@@ -808,8 +808,8 @@ sub evidence {
 			"$bad keeps buying $r secretly on the stock market",
 			"the global supply of $r is at an all time low",
 			"have you ever seen $r for real with your own eyes",
-			"$r $are so damn expensive",
-			"$r $are really rare",
+			"$r is so damn expensive",
+			"$r is really rare",
 			"Alex Jones says $bad $are linked to $r",
 		);
 	}
