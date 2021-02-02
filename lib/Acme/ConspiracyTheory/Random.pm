@@ -856,7 +856,7 @@ sub evidence {
 			"the $animal looks kind of weird",
 			"nobody has ever seen a $animal in real life",
 			"the $animal obviously isn't native to this planet",
-			sub {	"${ \ shady_group($redstring) } sacrifice $animal${\'s'} to ${ \ dark_lord($redstring) }" },
+			sub { "${ \ shady_group($redstring) } sacrifice $animal${\'s'} to ${ \ dark_lord($redstring) }" },
 			"the $animal looks bigger in real life",
 			"the $animal makes a funny noise",
 			"Alex Jones did a podcast about the $animal",
