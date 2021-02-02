@@ -1882,16 +1882,34 @@ sub theory {
 }
 
 my %special_numbers = (
-	33   => '33 is associated with the masons',
-	45   => 'Donald Trump was the 45th President of the USA',
-	666  => '666 is the number of the beast',
+	19   => [ qr/COVID/,             '19 is the coronavirus number' ],
+	24   => [ qr/TINTIN/,            'There are 24 Tintin comics' ],
+	33   => [ qr/MASON/,             '33 is associated with the masons' ],
+	35   => [ qr/ELVIS/,             'Elvis was born in 1935' ],
+	44   => [ qr/OBAMA/,             'Barack Obama was the 44th President of the USA' ],
+	45   => [ qr/TRUMP|QANON|USA/,   'Donald Trump was the 45th President of the USA',
+	          qr/UNITEDNATIONS/,     'The United Nations was founded in 1945' ],
+	46   => [ qr/BIDEN/,             'Joe Biden was the 46th President of the USA' ],
+	47   => [ qr/THECIA/,            'The CIA was founded in 1947',
+	          qr/SILVER/,            'Silver has atomic number 47' ],
+	49   => [ qr/NATO/,              'NATO was founded in 1949' ],
+	51   => [ qr/KFC/,               'Area 51 is the fifty-first area' ],
+	52   => [ qr/KFC/,               'KFC was founded in 1952' ],
+	55   => [ qr/BIGMAC|MCDONALDS/,  'McDonalds was founded in 1955' ],
+	63   => [ qr/JFK|OSWALD/,        'JFK was shot in 1963' ],
+	79   => [ qr/GOLD/,              'Gold has the atomic number 79' ],
+	81   => [ qr/HIV/,               'AIDS was discovered in 1981' ],
+	82   => [ qr/COKE/,              'Diet Coke first came out in 1982' ],
+	86   => [ qr/RADON/,             'The atomic number for radon is 86' ],
+	92   => [ qr/URANIUM/,           'The atomic number for uranium is 92' ],
+	322  => [ qr/SKULL/,             'Skull and Bones is Order 322' ],
+	666  => [ qr/DEVIL|DEMON|SATAN/, '666 is the number of the beast' ],
 );
 
 sub numerology {
 	my $redstring = shift // {};
 	
 	my @strings = List::Util::uniq(
-		grep { length($_) <= 20 }
 		map { my $letters = uc( $_ ); $letters =~ s/[^A-Z]//g; $letters }
 		map {
 			/^(the )(.+)$/i ? $2 : $_
@@ -1904,6 +1922,7 @@ sub numerology {
 	
 	my %calcs;
 	foreach my $string ( @strings ) {
+		next if length($string) >= 20;
 		my @letters = split //, $string;
 		my @numbers = map ord($_) - 0x40, @letters;
 		my $sum     = List::Util::sum( @numbers );
@@ -1918,7 +1937,12 @@ sub numerology {
 	
 	foreach my $key ( %special_numbers ) {
 		if ( $calcs{$key} ) {
-			push @{ $calcs{$key} }, $special_numbers{$key};
+			my @copy = @{ $special_numbers{$key} };
+			while ( @copy ) {
+				my ( $test, $statement ) = splice( @copy, 0 , 2 );
+				next unless "@strings" =~ $test;
+				push @{ $calcs{$key} }, "And guess what? " . $statement;
+			}
 		}
 	}
 	
