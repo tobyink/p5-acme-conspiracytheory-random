@@ -916,6 +916,7 @@ sub evidence {
 			"$topicname $have always been suspicious",
 			"$topicname $have connections to THEM",
 			"nobody really understands $topicname",
+			"all my posts about $topicname keep getting taken down by Tumblr",
 		);
 	}
 
