@@ -47,6 +47,7 @@ sub celebrity {
 		{ female => 0, name => 'George Soros' },
 		{ female => 1, name => 'Beyonce' },
 		{ female => 1, name => 'Whitney Houston' },
+		{ female => 0, name => 'Joe Rogan' },
 	);
 	_MERGE_( $redstring, celebrity => $celeb );
 	return $celeb->{name};
@@ -677,6 +678,24 @@ sub biologist {  # and medics
 	return $x;
 }
 
+sub website {
+	my $redstring = shift // {};
+
+	my $x = _RANDOM_(
+		'Tumblr',
+		'Pinterest',
+		'Youtube',
+		'Facebook',
+		'Wikipedia',
+		'Twitter',
+		'Instagram',
+		'Geocities',
+	);
+
+	_MERGE_( $redstring, website => $x );
+	return $x;
+}
+
 sub clone {
 	my $redstring = shift // {};
 
@@ -689,6 +708,7 @@ sub clone {
 		'a hologram',
 		'a look-alike',
 		'a robot',
+		'a shapeshifter',
 	);
 
 	_MERGE_( $redstring, clone => $x );
@@ -698,14 +718,14 @@ sub clone {
 
 sub evidence {
 	my $redstring = shift // {};
-	
+	my $website = website( $redstring );
 	my @x = (
-		"there's a video about it on YouTube",
-		"there was something about it on Facebook",
+		"there's a video about it on $website",
+		"there was something about it on $website",
 		"the voices told me",
 		"I had a dream",
-		'Pinterest is censoring me',
-		'Reddit was down this morning',
+		"$website is censoring me",
+		"$website was down this morning",
 	);
 
 	if ( my $m = $redstring->{misinformation} ) {
