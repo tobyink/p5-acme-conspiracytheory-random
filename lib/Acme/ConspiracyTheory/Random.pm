@@ -1124,11 +1124,6 @@ sub hidden_truth {
 			"$objects are sentient";
 		},
 		sub {
-			my $things = _RANDOM_( 'electrons', 'protons' );
-			$orig_meta->{topic} = { name => $things, plural => 1 };
-			"$things are not real particles, they are just the terminal lines of a dieletric pulse";
-		},
-		sub {
 			my $celebrity = celebrity( $orig_meta );
 			my $long_time = a_long_time( $orig_meta );
 			"$celebrity has been drinking the blood of infants $long_time to stay looking young";
@@ -1549,6 +1544,11 @@ sub theory {
 				sub {
 					$orig_meta->{topic} = { name => 'weighing scales', plural => 1 };
 					"protons don't have mass";
+				},
+				sub {
+					my $things = _RANDOM_( 'electrons', 'protons' );
+					$orig_meta->{topic} = { name => $things, plural => 1 };
+					"$things are not real particles, they are just the terminal lines of a dieletric pulse";
 				},
 				sub {
 					$orig_meta->{topic} = { name => 'water', plural => 0 };
