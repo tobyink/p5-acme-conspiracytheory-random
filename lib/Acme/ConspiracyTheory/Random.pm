@@ -911,6 +911,7 @@ sub evidence {
 			"Bible numerology has clues about $topicname",
 			"$topicname $have always been suspicious",
 			"$topicname $have connections to THEM",
+			"nobody really understands $topicname",
 		);
 	}
 
@@ -1688,6 +1689,10 @@ sub theory {
 				sub {
 					$orig_meta->{topic} = { name => 'anger managemment', plural => 0 };
 					"wasps are just angry bees";
+				},
+				sub {
+					$orig_meta->{topic} = { name => 'oncology', plural => 0 };
+					"windmills cause cancer";
 				},
 				sub {
 					my $animal = real_animal( $orig_meta );
