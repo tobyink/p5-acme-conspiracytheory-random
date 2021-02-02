@@ -681,21 +681,18 @@ sub clone {
 	my $orig_meta = shift // {};
 
 	my $x = _RANDOM_(
-		'alien',
-		'avatar',
-		'CGI',
-		'clone',
-		'cyborg',
-		'hologram',
-		'look-alike',
-		'robot',
+		'an alien',
+		'an avatar',
+		'a CGI replica',
+		'a clone',
+		'a cyborg',
+		'a hologram',
+		'a look-alike',
+		'a robot',
 	);
 
 	_MERGE_( $orig_meta, clone => $x );
-
-	my $a = ($x =~ /^[aeiou]/i ? 'an' : 'a');
-
-	return ($a, $x);
+	return $x;
 }
 
 
@@ -765,10 +762,9 @@ sub evidence {
 			"$v died too young",
 			"$v sent a letter containing the truth before dying",
 			sub {
-				my ($a, $clone) = clone( $orig_meta );
-				"when they did an autopsy on $v it turned out it was $a $clone",
+				my $clone = clone( $orig_meta );
+				"when they did an autopsy on $v it turned out it was $clone",
 			},
-			"when they did an autopsy on $v it turned out it was an alien",
 			"they never did an autopsy on $v",
 			"$v wrote a will",
 			sub {
@@ -1758,8 +1754,8 @@ sub theory {
 				"$pronoun is going to be killed if $pronoun isn't dead already",
 				"$pronoun is being paid to stay quiet",
 				sub {
-					my ($a, $clone) = clone( $orig_meta );
-					"$pronoun has been replaced by $a $clone";
+					my $clone = clone( $orig_meta );
+					"$pronoun has been replaced by $clone";
 				},
 				sub {
 					my $place = bad_place( $orig_meta );
