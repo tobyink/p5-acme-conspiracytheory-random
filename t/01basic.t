@@ -26,7 +26,9 @@ use Test::More;
 
 use Acme::ConspiracyTheory::Random 'theory';
 
-diag theory() for 0 .. 9;
+diag theory();
+
+theory() for 0 .. 9999;
 
 ok 1;
 
