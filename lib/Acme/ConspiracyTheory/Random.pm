@@ -320,6 +320,11 @@ sub artifact {
 		'the ark of the covenant',
 		"Jesus's foreskin",
 		'the Holy Prepuce',
+		'the Book of the Dead',
+		'the Necronomicon',
+		"the Philosopher's Stone",
+		"a fragment of the true cross",
+		"the seal of Soloman",
 	);
 	
 	_MERGE_( $orig_meta, artifact => $artifact );
