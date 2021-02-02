@@ -691,6 +691,7 @@ sub website {
 		'Twitter',
 		'Instagram',
 		'Geocities',
+		'Parler',
 	);
 
 	_MERGE_( $redstring, website => $x );
