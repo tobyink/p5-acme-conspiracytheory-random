@@ -251,10 +251,33 @@ sub disease {
 		'the common cold',
 		'diabetes',
 		'obesity',
+		'autism',
 	);
 	
 	_MERGE_( $redstring, disease => $disease );
 	return $disease;
+}
+
+sub disease_cause {
+	my $redstring = shift // {};
+	
+	my $cause = _RANDOM_(
+		sub {
+			my $food = food( $redstring );
+			( $food =~ /wine/ ) ? "drinking $food" : "eating $food";
+		},
+		sub {
+			chemicals( $redstring );
+		},
+		'non-vegan food',
+		'vegan food',
+		'socialism',
+		'electromagnetic radiation (WiFi!)',
+		'radon gas',
+	);
+	
+	_MERGE_( $redstring, disease_cause => $cause );
+	return $cause;
 }
 
 sub chemicals {
@@ -730,6 +753,12 @@ sub evidence {
 		sub { website() . ' was down this morning' },
 	);
 
+	if ( my $c = $redstring->{disease_cause} ) {
+		push @x, (
+			"$c is addictive",
+		);
+	}
+	
 	if ( my $m = $redstring->{misinformation} ) {
 		push @x, (
 			"they indoctrinate people about '$m' at schools and if it were the truth they wouldn't need to",
@@ -1005,7 +1034,7 @@ sub evidence {
 		my ( $e1, $e2 ) = @evidences;
 		return _RANDOM_(
 			"You can tell this is the truth because $e1 and $e2.",
-			"I know because $e1 and $e2.",
+			( ( "I know because $e1 and $e2." ) x 6 ),
 			"You just need to connect the dots. " . _UCFIRST_( "$e1 and $e2." ),
 			"I used to be asleep like you, but then I saw the clues. " . _UCFIRST_( "$e1 and $e2. WAKE UP!" ),
 			"THEY HIDE THE TRUTH IN PLAIN SIGHT. " . _UCFIRST_( "$e1 and $e2." ),
@@ -1175,6 +1204,12 @@ sub hidden_truth {
 		sub {
 			my $cryptids = cryptids( $redstring );
 			"$cryptids are real";
+		},
+		sub {
+			my $cause   = disease_cause( $redstring );
+			my $disease = disease( $redstring );
+			$redstring->{topic} = { name => 'western medicine', plural => 0 };
+			"$cause causes $disease";
 		},
 		sub {
 			my $cryptids = cryptids( $redstring );
@@ -1385,14 +1420,13 @@ sub theory {
 			my $truth = hidden_truth( $redstring );
 			
 			my $exclaim = _RANDOM_(
-				'',
-				'',
+				'', '', '', '', '', '',
 				" But the truth shall not be buried!",
 				" Don't let yourself be deceived!",
 				" Take the red pill!",
 				" Believing $misinfo is taking the blue pill!",
 				" Take the red pill - $truth!",
-				" Believing $misinfo is for blue pill sheeple!",
+				" Believing $misinfo is for blue-pilled sheeple!",
 				" Open your mind!",
 			);
 			
