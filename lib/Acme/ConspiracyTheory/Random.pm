@@ -704,6 +704,8 @@ sub evidence {
 		"there was something about it on Facebook",
 		"the voices told me",
 		"I had a dream",
+		'Pinterest is censoring me',
+		'Reddit was down this morning',
 	);
 
 	if ( my $m = $orig_meta->{misinformation} ) {
@@ -818,7 +820,7 @@ sub evidence {
 		
 		if ( my $p = $orig_meta->{random_place} ) {
 			push @x, (
-				$f->{author} . " has a secret home in $p",
+				$f->{author} . " had a secret home in $p",
 				$f->{author} . " was secretly born in $p",
 			);
 		}
@@ -870,6 +872,7 @@ sub evidence {
 		push @x, (
 			"$f don't taste like they used to",
 			"$f smell funny",
+			"$f make me feel sick",
 			"I don't like $f",
 		);
 	}
@@ -878,6 +881,7 @@ sub evidence {
 		push @x, (
 			"$chem isn't on the periodic table",
 			"$chem isn't real",
+			"$chem isn't natural",
 			"you'd have to be stupid to think $chem is real",
 		);
 	}
