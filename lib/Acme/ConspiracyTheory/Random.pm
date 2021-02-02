@@ -1883,7 +1883,6 @@ sub theory {
 
 my %special_numbers = (
 	33   => '33 is associated with the masons',
-	42   => '42 is the answer to life, the universe, and everything',
 	45   => 'Donald Trump was the 45th President of the USA',
 	666  => '666 is the number of the beast',
 );
