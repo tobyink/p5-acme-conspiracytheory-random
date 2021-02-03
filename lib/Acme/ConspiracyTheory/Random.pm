@@ -708,7 +708,6 @@ sub biologist {  # and medics
 		'Charles Darwin',
 		'Edward Jenner',
 		'Robert Koch',
-		'Edward Jenner',
 		'Carl Linneaus',
 		'Alexander Fleming',
 	);
