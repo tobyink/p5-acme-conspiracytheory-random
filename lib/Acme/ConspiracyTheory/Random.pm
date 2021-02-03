@@ -1196,12 +1196,16 @@ sub hidden_truth {
 						'the Boston Marathon Bombing',
 					);
 					$redstring->{topic} = { name => 'false flag operations', plural => 1 };
-					"$badevent was orchestrated by the government";
+					"$badevent was orchestrated by the US government";
 				},
 				sub {
 					$redstring->{topic} = { name => 'glaciers', plural => 1 };
 					$redstring->{random_place} //= 'Greenland';
 					"global warming is a hoax";
+				},
+				sub {
+					$redstring->{topic} = { name => 'geology', plural => 0 };
+					'the US government knows exactly when Yellowstone will erupt';
 				},
 				sub {
 					$redstring->{topic} = { name => 'cloud seeding', plural => 0 };
