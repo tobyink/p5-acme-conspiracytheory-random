@@ -1,6 +1,9 @@
 use 5.012;
 use strict;
 use warnings;
+
+# Artificial stupidity is easier to develop than artificial intelligence. 
+
 package Acme::ConspiracyTheory::Random;
 
 our $AUTHORITY = 'cpan:TOBYINK';
@@ -251,6 +254,7 @@ sub disease {
 		'diabetes',
 		'obesity',
 		'autism',
+		'Ebola',
 	);
 	
 	_MERGE_( $redstring, disease => $disease );
@@ -375,6 +379,7 @@ sub bad_place {
 			my $p = random_place( $redstring );
 			"a secret base in $p";
 		},
+		'a facility inside the hollow Earth', 
 	);
 	
 	_MERGE_( $redstring, bad_place => $bad_place );
@@ -1185,9 +1190,31 @@ sub hidden_truth {
 					"9/11 was an inside job";
 				},
 				sub {
+					my $badevent = _RANDOM_(
+						'Columbine',
+						'Sandy Hook',
+						'the Boston Marathon Bombing',
+					);
+					$redstring->{topic} = { name => 'false flag operations', plural => 1 };
+					"$badevent was orchestrated by the government";
+				},
+				sub {
 					$redstring->{topic} = { name => 'glaciers', plural => 1 };
 					$redstring->{random_place} //= 'Greenland';
 					"global warming is a hoax";
+				},
+				sub {
+					$redstring->{topic} = { name => 'cloud seeding', plural => 0 };
+					"the government controls the weather";
+				},
+				sub {
+					$redstring->{topic} = { name => 'Snapple', plural => 0 };
+					"Snapple is owned by the KKK";
+				},
+				sub {
+					my $disease = disease( $redstring );
+					$redstring->{topic} = { name => 'biological warfare', plural => 0 };
+					"$disease was developed as a bioweapon";
 				},
 				sub {
 					$redstring->{topic} = { name => 'gas chambers', plural => 1 };
@@ -1799,6 +1826,11 @@ sub theory {
 				sub {
 					$redstring->{topic} = { name => 'oncology', plural => 0 };
 					"windmills cause cancer";
+				},
+				sub {
+					my $chem = chemicals( $redstring );
+					$redstring->{topic} = { name => 'honey', plural => 0 };
+					"$chem is killing all the bees";
 				},
 				sub {
 					my $animal = real_animal( $redstring );
