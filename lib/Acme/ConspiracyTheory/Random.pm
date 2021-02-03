@@ -1950,7 +1950,7 @@ sub numerology {
 	
 	my @strings = List::Util::uniq(
 		grep { length }
-		map { my $letters = uc( $_ ); $letters =~ s/[^A-Z]//g; $letters }
+		map { my $letters = uc( $_ ); $letters =~ s/[^A-Z0-9]//g; $letters }
 		map {
 			/^(the )(.+)$/i ? $2 : $_
 		}
@@ -1964,7 +1964,7 @@ sub numerology {
 	foreach my $string ( @strings ) {
 		next if length($string) >= 20;
 		my @letters = split //, $string;
-		my @numbers = map ord($_) - 0x40, @letters;
+		my @numbers = map /[A-Z]/ ? ( ord($_) - 0x40 ) : $_, @letters;
 		my $sum     = List::Util::sum( @numbers );
 		
 		push @{ $calcs{$sum} ||= [] }, sprintf(
