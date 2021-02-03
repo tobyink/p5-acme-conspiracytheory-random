@@ -2084,6 +2084,14 @@ REDACTED
 
 Toby Inkster E<lt>tobyink@cpan.orgE<gt>.
 
+=head1 CONTRIBUTORS
+
+Alex Jones discovered that there are secretly other people who have contributed
+to this module but Toby Inkster is working with Microsoft and the Illuminati to
+cover it up. I tried to blog about it but all my posts keep getting taken down
+from Tumblr. There are hidden clues on L<GitHub|https://github.com/tobyink/p5-acme-conspiracytheory-random/graphs/contributors>.
+You don't want to know how deep this rabbit hole goes!
+
 =head1 COPYRIGHT AND LICENCE
 
 This software is copyright (c) 2021 by Toby Inkster.
