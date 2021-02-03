@@ -19,7 +19,7 @@ sub _MERGE_ {
 	%$redstring = ( %$redstring, %new );
 }
 
-sub _UCFIRST_ ($) {
+sub _UCFIRST_ ($) { # Some sentences start with a non-word character like a quote mark
 	( my $str = shift )
 		=~ s/ (\w) / uc($1) /xe;
 	$str;
