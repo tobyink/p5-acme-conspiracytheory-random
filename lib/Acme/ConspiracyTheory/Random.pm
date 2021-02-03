@@ -1,7 +1,6 @@
 use 5.012;
 use strict;
 use warnings;
-
 package Acme::ConspiracyTheory::Random;
 
 our $AUTHORITY = 'cpan:TOBYINK';
@@ -76,13 +75,13 @@ sub shady_group {
 			{ plural => 0, name => 'Opus Dei' },
 			{ plural => 0, name => 'the Priory of Sion', shortname => 'the Priory' },
 			{ plural => 0, name => 'GameStop' },
-			{ plural => 0, name => 'the British Royal Family', shortname => 'the Royals' },
+			{ plural => 0, splural => 1, name => 'the British Royal Family', shortname => 'the Royals' },
 			{ plural => 0, name => 'NASA' },
 			{ plural => 1, name => 'the Zionists' },
 			{ plural => 0, name => 'the Trump administration' },
 			{ plural => 0, name => 'the Biden administration' },
-			{ plural => 0, name => 'the Republican party', shortname => 'the Republicans' },
-			{ plural => 0, name => 'the Democrat party', shortname => 'the Democrats' },
+			{ plural => 0, splural => 1, name => 'the Republican party', shortname => 'the Republicans' },
+			{ plural => 0, splural => 1, name => 'the Democrat party', shortname => 'the Democrats' },
 			{ plural => 0, name => 'the New World Order' },
 			{ plural => 1, name => 'the Communists' },
 			{ plural => 0, name => 'the Shadow Government' },
@@ -90,7 +89,7 @@ sub shady_group {
 			{ plural => 0, name => 'the global scientific elite' },
 			{ plural => 0, name => 'Big Pharma' },
 			{ plural => 0, name => 'Big Tobacco' },
-			{ plural => 1, name => 'the lizard people', shortname => 'the lizardmen' },
+			{ plural => 1, splural => 1, name => 'the lizard people', shortname => 'the lizardmen' },
 			{ plural => 1, name => 'the grey aliens', shortname => 'the aliens' },
 			{ plural => 1, name => 'the big Hollywood studios', shortname => 'Hollywood' },
 			{ plural => 0, name => 'the music industry' },
@@ -511,24 +510,27 @@ sub precious_resource_with_quantity {
 
 sub mind_control_device {
 	my $redstring = shift // {};
-	
-	my $mc = _RANDOM_(
-		'chemtrails',
-		'mind control drugs in the water',
-		'5G',
-		'WiFi',
-		'microchips implanted at birth',
-		'vaccines',
-		'childhood indoctrination',
-		'neurolinguistic programming',
-		'video games',
-		'mass media',
-		'space lasers',
-		'hypnotism',
+
+	my @mc = (
+		['chemtrails', 1],
+		['mind control drugs in the water', 1],
+		['5G', 0],
+		['WiFi', 0],
+		['microchips implanted at birth', 1],
+		['vaccines', 1],
+		['childhood indoctrination', 0],
+		['neurolinguistic programming', 0],
+		['video games', 1],
+		['mass media', 1],
+		['space lasers', 1],
+		['hypnotism', 0],
 	);
 	
-	_MERGE_( $redstring, mind_control_device => $mc );
-	return $mc;
+	my $mc = _RANDOM_(@mc);
+	
+	_MERGE_( $redstring, mind_control_device => $mc->[0] );
+	_MERGE_( $redstring, mind_control_device_plural => $mc->[1] );
+	return $mc->[0];
 }
 
 sub future_time {
@@ -547,13 +549,21 @@ sub future_time {
 	return $time;
 }
 
+sub splural {
+	my $a = shift;
+	if (defined $a->{splural}) {
+		return $a->{splural};
+	}
+	return $a->{plural};
+}
+
 sub a_long_time {
 	my $redstring = shift // {};
 	
 	my @extras = ();
 	for my $actor ( qw/ protagonists antagonists / ) {
 		push @extras, sub {
-			my $have = $redstring->{$actor}{plural} ? 'have' : 'has';
+			my $have = splural( $redstring->{$actor} ) ? 'have' : 'has';
 			"for as long as " . ($redstring->{$actor}{shortname}//$redstring->{$actor}{name}) . " $have existed";
 		} if $redstring->{$actor}{name};
 	}
@@ -721,6 +731,23 @@ sub website {
 	return $x;
 }
 
+sub fatuous {
+	my $redstring = shift // {};
+
+	my $x = _RANDOM_(
+		"We all know what's going on here.",
+		"It's plain and simple common sense.",
+		'Most people are in denial.',
+		"Isn't it obvious?",
+		"Wake up, sheeple!",
+		"It's obvious if you connect the dots.",
+		"They leave clues to mock us.",
+	);
+
+	_MERGE_( $redstring, clone => $x );
+	return $x;
+}
+
 sub clone {
 	my $redstring = shift // {};
 
@@ -862,7 +889,8 @@ sub evidence {
 			$f->{title} . " is satanic",
 			sub {
 				my $g = shady_group( $redstring );
-				$f->{author} . " has ties to $g";
+				my $has = splural( $redstring->{shady_group} ) ? 'have' : 'has';
+				$f->{author} . " $has ties to $g";
 			},
 			sub {
 				my $b = bad_place( $redstring );
@@ -894,11 +922,20 @@ sub evidence {
 	
 	if ( my $mc = $redstring->{mind_control_device} ) {
 		my $time = a_long_time();
+		my $mcp = $redstring->{mind_control_device_plural};
+		my $is = 'is';
+		my $has = 'has';
+		my $was = 'was';
+		if ($mcp) {
+			$is = 'are';
+			$has = 'have';
+			$was = 'were';
+		}
 		push @x, (
-			"everybody knows $mc is real",
-			sub { "$mc has been researched by ${ \ shady_group($redstring) } $time" },
-			sub { "$mc was used to conceal ${ \ shady_group($redstring) } $time" },
-			sub { "$mc was used to infiltrate ${ \ shady_group($redstring) }" },
+			"everybody knows $mc $is real",
+			sub { "$mc $has been researched by ${ \ shady_group($redstring) } $time" },
+			sub { "$mc $was used to conceal ${ \ shady_group($redstring) } $time" },
+			sub { "$mc $was used to infiltrate ${ \ shady_group($redstring) }" },
 		);
 	}
 
@@ -939,12 +976,13 @@ sub evidence {
 	}
 
 	if ( my $r = $redstring->{precious_resource} ) {
-		my ( $bad, $are );
+		my ( $bad, $are, $r_are );
 		$redstring->{shady_group}{name} or shady_group( $redstring );
 		foreach ( qw/ antagonist protagonist shady_group / ) {
 			if ( $redstring->{$_}{name} ) {
 				$bad = $redstring->{$_}{name};
 				$are = $redstring->{$_}{plural} ? 'are' : 'is';
+				$r_are = ($r =~ /s$/) ? 'are' : 'is';
 			}
 		}
 		push @x, (
@@ -952,8 +990,8 @@ sub evidence {
 			"$bad keeps buying $r secretly on the stock market",
 			"the global supply of $r is at an all time low",
 			"have you ever seen $r for real with your own eyes",
-			"$r is so damn expensive",
-			"$r is really rare",
+			"$r $r_are so damn expensive",
+			"$r $r_are really rare",
 			"Alex Jones says $bad $are linked to $r",
 		);
 	}
@@ -980,6 +1018,7 @@ sub evidence {
 			// shady_group( $redstring );
 		push @x, (
 			"the Wikipedia entry for $p keeps getting edited by $bad",
+			# This has singular/plural problems - how to solve?
 			"$bad has ties to $p",
 			"$p probably isn't a real place anyway",
 		);
@@ -989,9 +1028,10 @@ sub evidence {
 		next unless $redstring->{$actor}{name};
 		
 		my $name   = $redstring->{$actor}{shortname} // $redstring->{$actor}{name};
-		my $have   = $redstring->{$actor}{plural} ? 'have' : 'has';
-		my $are    = $redstring->{$actor}{plural} ? 'are'  : 'is';
-		my $s      = $redstring->{$actor}{plural} ? ''     : 's';
+		my $have   = splural( $redstring->{$actor} ) ? 'have' : 'has';
+		my $are    = splural( $redstring->{$actor} ) ? 'are'  : 'is';
+		my $s      = splural( $redstring->{$actor} ) ? ''     : 's';
+		my $ies    = splural( $redstring->{$actor} ) ? 'y'    : 'ies';
 		
 		( my $fbname = $name ) =~ s/^the //i;
 		$fbname = _UCFIRST_ $fbname;
@@ -1005,7 +1045,7 @@ sub evidence {
 			"the '$fbname Truth' Facebook page says so",
 			"the '$fbname Exposed' website says so",
 			"$name even admit$s it",
-			"$name deny$s it but that is obvious lies",
+			"$name den$ies it but that is obvious lies",
 		);
 		
 		if ( my $animal = $redstring->{real_animal} // $redstring->{fake_animal} ) {
@@ -1039,13 +1079,11 @@ sub evidence {
 			"I used to be asleep like you, but then I saw the clues. " . _UCFIRST_( "$e1 and $e2. WAKE UP!" ),
 			"THEY HIDE THE TRUTH IN PLAIN SIGHT. " . _UCFIRST_( "$e1 and $e2." ),
 			"You won't believe how deep the rabbit hole goes. " . _UCFIRST_( "$e1 and $e2." ),
-			_UCFIRST_( "$e1 and $e2. It's obvious if you connect the dots." ),
-			_UCFIRST_( "$e1 and $e2. They leave clues to mock us." ),
-			_UCFIRST_( "$e1 and $e2. Isn't it obvious?" ),
-			_UCFIRST_( "$e1 and $e2. Wake up, sheeple!" ),
+			sub { _UCFIRST_("$e1 and $e2. " . fatuous()) },
 			sub {
 				my $e3 = uc _RANDOM_(@x);
-				_UCFIRST_( "$e1 and $e2. Isn't it obvious? $e3!" );
+				my $fatuous = fatuous();
+				_UCFIRST_( "$e1 and $e2. $fatuous $e3!" );
 			},
 			sub {
 				my $e3 = uc _RANDOM_(@x);
@@ -1464,7 +1502,8 @@ sub theory {
 					my $truth = hidden_truth();
 					my $pro   = $redstring->{protagonists}{shortname} // $protagonists;
 					my $ant   = $redstring->{antagonists}{shortname} // $antagonists;
-					_UCFIRST_ "$pro want to expose the truth that $truth and $ant will do whatever they can to stop them";
+					my $want = splural( $redstring->{protagonists} ) ? 'want' : 'wants';
+					_UCFIRST_ "$pro $want to expose the truth that $truth and $ant will do whatever they can to stop them";
 				},
 			);
 			
@@ -1854,7 +1893,7 @@ sub theory {
 		my $group1 = $redstring->{protagonists}{shortname} // $redstring->{protagonists}{name};
 		my $group2 = shady_group( $redstring );
 		$redstring->{antagonists} = $redstring->{shady_group};
-		my $know = $redstring->{antagonists}->{plural} ? 'know' : 'knows';
+		my $know = splural ($redstring->{antagonists}) ? 'know' : 'knows';
 		$theory .= " " . _UCFIRST_ _RANDOM_(
 			sub {
 				my $bribe = precious_resource_with_quantity( $redstring );
