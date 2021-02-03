@@ -1949,6 +1949,7 @@ sub numerology {
 	my $redstring = shift // {};
 	
 	my @strings = List::Util::uniq(
+		grep { length }
 		map { my $letters = uc( $_ ); $letters =~ s/[^A-Z]//g; $letters }
 		map {
 			/^(the )(.+)$/i ? $2 : $_
