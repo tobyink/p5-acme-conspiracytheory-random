@@ -1318,8 +1318,9 @@ sub hidden_truth {
 		sub {
 			my $chemicals = chemicals( $redstring );
 			my $animal    = real_animal( $redstring );
+			my $s = ($animal ne 'fish') ? 's' : '';
 			my $attribute = attribute( $redstring );
-			"the $chemicals in the water is turning the $animal" . "s $attribute";
+			"the $chemicals in the water is turning the $animal" . "$s $attribute";
 		},
 		sub {
 			my $chemicals = chemicals( $redstring );
