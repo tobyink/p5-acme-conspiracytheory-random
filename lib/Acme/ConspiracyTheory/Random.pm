@@ -9,7 +9,7 @@ package Acme::ConspiracyTheory::Random;
 our $AUTHORITY = 'cpan:TOBYINK';
 our $VERSION   = '0.010';
 
-use Exporter::Shiny qw( theory );
+use Exporter::Shiny qw( theory bad_punctuation );
 use List::Util 1.54 ();
 
 sub _RANDOM_ {
@@ -1078,26 +1078,26 @@ sub evidence {
 	if ( @evidences == 2 ) {
 		my ( $e1, $e2 ) = @evidences;
 		return _RANDOM_(
-			"You can tell this is the truth because $e1 and $e2.",
-			( ( "I know because $e1 and $e2." ) x 6 ),
+			"You can tell this is the truth because $e1, and $e2.",
+			( ( "I know because $e1, and $e2." ) x 6 ),
 			"You just need to connect the dots. " . _UCFIRST_( "$e1 and $e2." ),
-			"I used to be asleep like you, but then I saw the clues. " . _UCFIRST_( "$e1 and $e2. WAKE UP!" ),
-			"THEY HIDE THE TRUTH IN PLAIN SIGHT. " . _UCFIRST_( "$e1 and $e2." ),
-			"You won't believe how deep the rabbit hole goes. " . _UCFIRST_( "$e1 and $e2." ),
-			sub { _UCFIRST_("$e1 and $e2. " . fatuous()) },
+			"I used to be asleep like you, but then I saw the clues. " . _UCFIRST_( "$e1, and $e2. WAKE UP!" ),
+			"THEY HIDE THE TRUTH IN PLAIN SIGHT. " . _UCFIRST_( "$e1, and $e2." ),
+			"You won't believe how deep the rabbit hole goes. " . _UCFIRST_( "$e1, and $e2." ),
+			sub { _UCFIRST_("$e1, and $e2. " . fatuous()) },
 			sub {
 				my $e3 = uc _RANDOM_(@x);
 				my $fatuous = fatuous();
-				_UCFIRST_( "$e1 and $e2. $fatuous $e3!" );
+				_UCFIRST_( "$e1, and $e2. $fatuous $e3!" );
 			},
 			sub {
 				my $e3 = uc _RANDOM_(@x);
-				_UCFIRST_( "$e1 and $e2. They leave clues to mock us! $e3! MOCK! MOCK!" );
+				_UCFIRST_( "$e1, and $e2. They leave clues to mock us! $e3! MOCK! MOCK!" );
 			},
 			sub {
 				my $t = {};
 				theory($t);
-				_UCFIRST_( "$e1 and $e2. Isn't it obvious? Also: " . $t->{base_theory} );
+				_UCFIRST_( "$e1, and $e2. Isn't it obvious? Also: " . $t->{base_theory} );
 			},
 		);
 	}
@@ -1106,7 +1106,7 @@ sub evidence {
 		return _RANDOM_(
 			"You can tell the truth because $e1.",
 			_UCFIRST_("$e1 and that reveals the truth."),
-			"The truth is obvious if you're not a sheep - $e1.",
+			"The truth is obvious if you're not a sheep, $e1.",
 		);
 	}
 	
@@ -2046,6 +2046,15 @@ sub numerology {
 	return '';
 }
 
+sub bad_punctuation {
+	my ( $string, $cancel ) = @_;
+	unless ( $cancel ) {
+		$string =~ s/ (\w) ([,!?]) / $1 . _RANDOM_(    $2, " $2", " $2", " $2$2") /exg;
+		$string =~ s/ (\w) ([.])   / $1 . _RANDOM_($2, $2, " $2", " ", " $2$2$2") /exg;
+	}
+	return $string;
+}
+
 1;
 
 __END__
@@ -2061,15 +2070,18 @@ Acme::ConspiracyTheory::Random - random theories
 =head1 SYNOPSIS
 
   use feature 'say';
-  use Acme::ConspiracyTheory::Random 'theory';
+  use Acme::ConspiracyTheory::Random -all;
   
-  say theory();
+  say bad_punctuation( theory() );
 
 =head1 DESCRIPTION
 
-This module exports one function, C<< theory() >> which returns a string.
+This module exports a function, C<< theory() >> which returns a string.
 
 =for html <p><img src="https://raw.githubusercontent.com/tobyink/p5-acme-conspiracytheory-random/master/assets/pepe-silvia.jpeg" alt=""></p>
+
+There is also a function C<< bad_punctuation >> which, given a string, might
+make the punctuation worse.
 
 =head1 BUGS
 
