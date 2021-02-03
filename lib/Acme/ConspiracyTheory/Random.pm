@@ -1143,12 +1143,16 @@ sub hidden_truth {
 					"viruses aren't real";
 				},
 				sub {
-					$redstring->{topic} = { name => 'MKUltra', plural => 1 };
+					$redstring->{topic} = { name => 'MKUltra', plural => 0 };
 					"MKUltra is still happening";
 				},
 				sub {
-					$redstring->{topic} = { name => 'Jeffrey Epstein', plural => 1 };
+					$redstring->{topic} = { name => 'Jeffrey Epstein', plural => 0 };
 					"Epstein didn't kill himself";
+				},
+				sub {
+					$redstring->{topic} = { name => "Sgt Pepper's Lonely Hearts Club Band", plural => 0 };
+					"Paul McCartney died in a car crash in 1966";
 				},
 				sub {
 					$redstring->{topic} = { name => 'Stonehenge', plural => 0 };
