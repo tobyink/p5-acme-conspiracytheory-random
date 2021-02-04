@@ -170,6 +170,7 @@ sub fake_animal {
 		'dragon',
 		'wyvern',
 		'yeti',
+		'Loch Ness monster',
 	);
 	
 	_MERGE_( $redstring, fake_animal => $animal );
@@ -1193,6 +1194,8 @@ sub hidden_truth {
 						'Columbine',
 						'Sandy Hook',
 						'the Boston Marathon Bombing',
+						'Malaysia Airlines Flight 370',
+						'the JFK assassination',
 					);
 					$redstring->{topic} = { name => 'false flag operations', plural => 1 };
 					"$badevent was orchestrated by the US government";
@@ -1251,7 +1254,7 @@ sub hidden_truth {
 				'Curious George used to have a tail',
 				'Febreze used to have another E in it',
 				'Froot Loops used to be Fruit Loops',
-				'the Monopoly man is supposed to have a monacle',
+				'the Monopoly man is supposed to have a monocle',
 				'Kitkat used to have a hyphen',
 				'the Mona Lisa used to smile more',
 				'C-3PO never used to have a silver leg',
