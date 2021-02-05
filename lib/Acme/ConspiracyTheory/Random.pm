@@ -2069,8 +2069,9 @@ sub numerology {
 sub bad_punctuation {
 	my ( $string, $cancel ) = @_;
 	unless ( $cancel ) {
-		$string =~ s/ (\w) ([,!?]) / $1 . _RANDOM_(    $2, " $2", " $2", " $2$2") /exg;
-		$string =~ s/ (\w) ([.])   / $1 . _RANDOM_($2, $2, " $2", " ", " $2$2$2") /exg;
+		$string =~ s/ ([A-Za-z]) ([,!?]) / $1 . _RANDOM_(    $2, " $2", " $2", " $2$2") /exg;
+		$string =~ s/ ([A-Za-z]) ([.])   / $1 . _RANDOM_($2, $2, " $2", " ", " $2$2$2") /exg;
+		$string =~ s/\!/_RANDOM_('!', '!', '!!',  "!!!!")/ex;
 	}
 	return $string;
 }
