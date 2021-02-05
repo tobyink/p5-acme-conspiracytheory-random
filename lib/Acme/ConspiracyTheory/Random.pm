@@ -1320,6 +1320,7 @@ sub hidden_truth {
 		sub {
 			my $celebrity = celebrity( $redstring );
 			$redstring->{topic} = { name => 'cross-dressing', plural => 0 };
+			$redstring->{celebrity}{female} = ! $redstring->{celebrity}{female};
 			"$celebrity is transsexual";
 		},
 		sub {
