@@ -1244,6 +1244,23 @@ sub hidden_truth {
 					$redstring->{topic} = { name => 'Nazis', plural => 1 };
 					"there is a Nazi base in Antarctica";
 				},
+				sub {
+					my $website = website( $redstring );
+					my $spies   = _RANDOM_(
+						'spies',
+						'the CIA',
+						'GCHQ',
+						'the NSA',
+						'the Kremlin',
+						'Ipsos MORI',
+						sub {
+							my $g = shady_group( $redstring );
+							$redstring->{shady_group}{plural} ? $g : "spies from $g";
+						}
+					);
+					$redstring->{topic} = { name => 'biscuits', plural => 1 };
+					"$spies are using cookies to see everything you look at on $website";
+				},
 			);
 		},
 		sub {
@@ -1355,9 +1372,9 @@ sub hidden_truth {
 		sub {
 			my $chemicals = chemicals( $redstring );
 			my $animal    = real_animal( $redstring );
-			my $s = ($animal ne 'fish') ? 's' : '';
+			my $s         = ($animal ne 'fish') ? 's' : '';
 			my $attribute = attribute( $redstring );
-			"the $chemicals in the water is turning the $animal" . "$s $attribute";
+			"the $chemicals in the water is turning the $animal$s $attribute";
 		},
 		sub {
 			my $chemicals = chemicals( $redstring );
