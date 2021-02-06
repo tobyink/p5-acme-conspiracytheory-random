@@ -67,7 +67,7 @@ sub shady_group {
 			{ plural => 0, name => 'the Ordo Templi Orientis' },
 			{ plural => 1, name => 'the Cabalists' },
 			{ plural => 1, name => 'the Followers of the Temple Of The Vampire', shortname => 'the Vampires' },
-			{ plural => 0, name => 'the Secret Order of the Knights of the Round Table', shortname => 'the Knights' },
+			{ plural => 0, splural => 1, name => 'the Secret Order of the Knights of the Round Table', shortname => 'the Knights' },
 			{ plural => 1, name => 'the Cardinals of the Catholic Church', shortname => 'the Cardinals' },
 			{ plural => 0, name => 'the Church of Satan', shortname => 'the Church' },
 			{ plural => 1, name => 'the Gnostics' },
@@ -204,6 +204,7 @@ sub shady_project {
 		'the LGBT Agenda',
 		'the Kalergi Plan',
 		'Eurabia',
+		'the moon-landing hoax',
 	);
 	
 	_MERGE_( $redstring, shady_project => $x );
@@ -794,6 +795,7 @@ sub evidence {
 		push @x, (
 			"they indoctrinate people about '$m' at schools and if it were the truth they wouldn't need to",
 			"'$m' gets pushed down our throats by mass media",
+			"'$m' is a false-flag operation",
 		);
 	}
 	
@@ -1776,12 +1778,14 @@ sub theory {
 				"$group helped cover up the truth.",
 				"$group threatened to kill him to keep him quiet.",
 				"He was a member of $group so they knew he would keep quiet.",
+				"$group arranged a convenient \"accident\".",
 			);
 			
 			my $destruction = _RANDOM_(
 				"all of modern physics",
 				'our understanding of the universe',
 				"the Big Bang 'theory'",
+				"Einstein's theory of relativity",
 			);
 			
 			_UCFIRST_ "$physicist discovered that $fact but the scientific establishment is suppressing it because it would destroy $destruction. $solution";
@@ -1848,6 +1852,7 @@ sub theory {
 				"$group helped cover up the truth.",
 				"$group threatened to kill him to keep him quiet.",
 				"He was a member of $group so they knew he would keep quiet.",
+				"$group arranged a convenient \"accident\".",
 			);
 			
 			my $destruction = _RANDOM_(
@@ -1900,6 +1905,7 @@ sub theory {
 				"$pronoun will probably have to be eliminated",
 				"$pronoun is going to be killed if $pronoun isn't dead already",
 				"$pronoun is being paid to stay quiet",
+				"$pronoun will meet a convenient \"accident\"",
 				sub {
 					my $clone = clone( $redstring );
 					"$pronoun has been replaced by $clone";
