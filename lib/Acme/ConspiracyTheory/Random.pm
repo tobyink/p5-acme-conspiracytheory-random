@@ -193,6 +193,21 @@ sub objects {
 	return $objects;
 }
 
+sub invention {
+	my $redstring = shift // {};
+	
+	my $invention = _RANDOM_(
+		['the internet', 0],
+		['cryptocurrencies', 1],
+		['smartphones', 1],
+		['bitcoin', 0],
+	);
+	
+	_MERGE_( $redstring, invention => $invention->[0],
+		 invention_plural => $invention->[1], );
+	return $invention->[0];
+}
+
 sub shady_project {
 	my $redstring = shift // {};
 	
@@ -747,6 +762,7 @@ sub fatuous {
 		"Wake up, sheeple!",
 		"It's obvious if you connect the dots.",
 		"They leave clues to mock us.",
+		"It's not funny!",
 	);
 
 	_MERGE_( $redstring, clone => $x );
@@ -772,6 +788,19 @@ sub clone {
 	return $x;
 }
 
+sub lies {
+	my $redstring = shift // {};
+
+	my $x = _RANDOM_(
+		'obvious lies',
+		'a big coverup',
+		'a fairy tale',
+		'disinformation',
+	);
+	
+	_MERGE_( $redstring, lies => $x );
+	return $x;
+}
 
 sub evidence {
 	my $redstring = shift // {};
@@ -1040,6 +1069,8 @@ sub evidence {
 		
 		( my $fbname = $name ) =~ s/^the //i;
 		$fbname = _UCFIRST_ $fbname;
+
+		my $lies = lies();
 		
 		push @x, (
 			"$name $have included it in their manifesto",
@@ -1050,7 +1081,7 @@ sub evidence {
 			"the '$fbname Truth' Facebook page says so",
 			"the '$fbname Exposed' website says so",
 			"$name even admit$s it",
-			"$name den$ies it but that is obvious lies",
+			"$name den$ies it but that is $lies",
 		);
 		
 		if ( my $animal = $redstring->{real_animal} // $redstring->{fake_animal} ) {
@@ -1497,6 +1528,22 @@ sub hidden_truth {
 			);
 			$redstring->{real_animal} //= $extinct;
 			"the $extinct is not extinct and there is a colony in $p";
+		},
+		sub {
+			my $group   = shady_group( $redstring );
+			my $invention = invention( $redstring );
+			my $are = $redstring->{shady_group}{plural} ? 'are' : 'is';
+			my $was = $redstring->{invention_plural} ? 'were' : 'was';
+			my $invented = _RANDOM_(
+				'invented',
+				'cooked up',
+				'fabricated',
+			);
+			_RANDOM_(
+				"$group $are behind $invention",
+				"$group $invented $invention",
+				"$invention $was $invented by $group",
+			);
 		},
 	);
 	
