@@ -331,7 +331,7 @@ sub attribute {
 		'horny',
 		'female',
 		'fat',
-		'flourescent',
+		'fluorescent',
 	);
 	
 	_MERGE_( $redstring, attribute => $attr );
@@ -352,7 +352,7 @@ sub artifact {
 		'the Necronomicon',
 		"the Philosopher's Stone",
 		"a fragment of the true cross",
-		"the seal of Soloman",
+		"the seal of Solomon",
 	);
 	
 	_MERGE_( $redstring, artifact => $artifact );
@@ -582,7 +582,7 @@ sub a_long_time {
 		'since time immemorial',
 		'since the dawn of time',
 		'for hundreds of years',
-		'for millenia',
+		'for millennia',
 		@extras,
 	);
 	
@@ -1743,7 +1743,7 @@ sub theory {
 				sub {
 					my $things = _RANDOM_( 'electrons', 'protons' );
 					$redstring->{topic} = { name => $things, plural => 1 };
-					"$things are not real particles, they are just the terminal lines of a dieletric pulse";
+					"$things are not real particles, they are just the terminal lines of a dielectric pulse";
 				},
 				sub {
 					$redstring->{topic} = { name => 'water', plural => 0 };
@@ -1820,7 +1820,7 @@ sub theory {
 			my $fact = _RANDOM_(
 				sub {
 					$redstring->{topic} = { name => 'pandas', plural => 1 };
-					'pandas are really just fat racoons';
+					'pandas are really just fat raccoons';
 				},
 				sub {
 					$redstring->{topic} = { name => 'spaghetti', plural => 1 };
@@ -1849,7 +1849,7 @@ sub theory {
 					"essential oils cure autism";
 				},
 				sub {
-					$redstring->{topic} = { name => 'anger managemment', plural => 0 };
+					$redstring->{topic} = { name => 'anger management', plural => 0 };
 					"wasps are just angry bees";
 				},
 				sub {
