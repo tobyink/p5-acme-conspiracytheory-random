@@ -1245,6 +1245,10 @@ sub hidden_truth {
 					"there is a Nazi base in Antarctica";
 				},
 				sub {
+					$redstring->{topic} = { name => 'wrestling', plural => 0 };
+					"all professional sports are scripted";
+				},
+				sub {
 					my $website = website( $redstring );
 					my $spies   = _RANDOM_(
 						'spies',
