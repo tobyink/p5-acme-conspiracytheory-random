@@ -764,6 +764,7 @@ sub fatuous {
 		"It's obvious if you connect the dots.",
 		"They leave clues to mock us.",
 		"It's not funny!",
+		"There are too many coincidences to ignore.",
 	);
 
 	_MERGE_( $redstring, clone => $x );
