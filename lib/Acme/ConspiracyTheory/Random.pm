@@ -1186,6 +1186,12 @@ sub hidden_truth {
 					"MKUltra is still happening";
 				},
 				sub {
+					shady_group( $redstring );
+					$redstring->{antagonist} //= $redstring->{shady_group};
+					$redstring->{topic} = { name => 'avalanches', plural => 1 };
+					$redstring->{antagonist}{name} . " was responsible for the Dyatlov Pass incident";
+				},
+				sub {
 					$redstring->{topic} = { name => 'Jeffrey Epstein', plural => 0 };
 					"Epstein didn't kill himself";
 				},
