@@ -108,6 +108,7 @@ sub shady_group {
 			{ plural => 0, name => 'Twitter' },
 			{ plural => 0, name => 'Facebook' },
 			{ plural => 0, name => 'Google' },
+			{ plural => 0, name => 'Monsanto' },
 			{ plural => 0, name => 'the Wall Street establishment', shortname => 'Wall Street' },
 			{ plural => 1, name => 'people at 10 Downing Street', shortname => "Downing Street" },
 			{ plural => 0, name => 'Goldman Sachs' },
@@ -122,6 +123,7 @@ sub shady_group {
 					['Venus', 'the Venutians'],
 					['Mars', 'the Martians'],
 					['Pluto', 'the Plutonians'],
+					['Andromeda', 'the Andromedans'],
 					['the moon', 'the moonlings'],
 					['the Counter-Earth', 'the anti-Earthlings'],
 				);
@@ -314,6 +316,7 @@ sub chemicals {
 		'5G',
 		'antimatter',
 		'dark matter',
+		'fluoride',
 	);
 	
 	_MERGE_( $redstring, chemicals => $chemicals );
@@ -1225,6 +1228,11 @@ sub hidden_truth {
 					"aliens abduct people for probing";
 				},
 				sub {
+					$redstring->{topic} = { name => 'CERN', plural => 0 };
+					$redstring->{random_place} //= 'Switzerland';
+					"the large hadron collider will destroy the planet";
+				},
+				sub {
 					$redstring->{topic} = { name => 'steal beams', plural => 1 };
 					$redstring->{random_place} //= 'New York';
 					"9/11 was an inside job";
@@ -1236,6 +1244,10 @@ sub hidden_truth {
 						'the Boston Marathon Bombing',
 						'Malaysia Airlines Flight 370',
 						'the JFK assassination',
+						'Project Monarch',
+						'the 1993 WTC bombing',
+						'the 2017 hurricane season (Project Geostorm)',
+						'Deepwater Horizon',
 					);
 					$redstring->{topic} = { name => 'false flag operations', plural => 1 };
 					"$badevent was orchestrated by the US government";
