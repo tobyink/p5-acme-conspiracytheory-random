@@ -140,7 +140,7 @@ sub shady_group {
 	_MERGE_( $redstring, shady_group => $xx );
 	my $name = $xx->{name};
 	if ($name =~ /ists$/ && $name !~ /^the/) {
-	    $name = "the $name";
+		$name = "the $name";
 	}
 	return $name;
 }
