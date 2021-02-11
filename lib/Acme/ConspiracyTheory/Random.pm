@@ -138,7 +138,11 @@ sub shady_group {
 	};
 	
 	_MERGE_( $redstring, shady_group => $xx );
-	return $xx->{name};
+	my $name = $xx->{name};
+	if ($name =~ /ists$/ && $name !~ /^the/) {
+		$name = "the $name";
+	}
+	return $name;
 }
 
 sub real_animal {
