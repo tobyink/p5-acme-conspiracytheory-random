@@ -223,6 +223,7 @@ sub shady_project {
 		'the Global Warming Hoax',
 		'the New Chronology',
 		'the Great Replacement',
+		'the Great Reset',
 		'the LGBT Agenda',
 		'the Kalergi Plan',
 		'Eurabia',
