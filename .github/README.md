@@ -17,6 +17,10 @@ from the CPAN.
 
 Please report any issues via [GitHub Issues](https://github.com/tobyink/p5-acme-conspiracytheory-random/issues).
 
+## Contributing
+
+[Contributing guidelines](https://toby.ink/open-source/contributing/).
+
 ## Support this project
 
 [Sponsor tobyink on GitHub Sponsors](https://github.com/sponsors/tobyink).
