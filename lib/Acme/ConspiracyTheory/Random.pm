@@ -50,6 +50,11 @@ sub celebrity {
 		{ female => 1, name => 'Beyonce' },
 		{ female => 1, name => 'Whitney Houston' },
 		{ female => 0, name => 'Joe Rogan' },
+		{ female => 1, name => 'Marjorie Taylor Greene' },
+		{ female => 0, name => 'Rishi Sunak' },
+		{ female => 0, name => 'Vladimir Putin' },
+		{ female => 0, name => 'Ron DeSantis' },
+		{ female => 1, name => 'Lauren Opal Boebert' },
 	);
 	_MERGE_( $redstring, celebrity => $celeb );
 	return $celeb->{name};
