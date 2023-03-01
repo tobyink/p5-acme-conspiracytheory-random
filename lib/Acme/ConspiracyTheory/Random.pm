@@ -487,6 +487,15 @@ sub myth_place {
 	return $place;
 }
 
+sub any_place {
+	my $redstring = shift // {};
+	return _RANDOM_(
+		sub { bad_place $redstring },
+		sub { random_place $redstring },
+		sub { myth_place $redstring },
+	);
+}
+
 sub cryptids {
 	my $redstring = shift // {};
 	
@@ -1767,6 +1776,60 @@ sub theory {
 					"$fiction was analysed with a computer by $group and it revealed $truth.",
 				},
 			);
+		},
+		sub {
+			my $group = shady_group( $redstring );
+			$redstring->{protagonists} = $redstring->{shady_group};
+			my $knows  = $redstring->{protagonists}->{plural} ? 'knows' : 'know';
+			my $theyve = $redstring->{protagonists}->{plural} ? "They've" : "It's";
+			my $is     = $redstring->{protagonists}->{plural} ? 'are' : 'is';
+			my $group_shortname = $redstring->{protagonists}{shortname} // $group;
+			
+			my $artifact = artifact( $redstring );
+			my $project = shady_project( $redstring );
+			my $place = any_place( $redstring );
+			
+			my @parts = _UCFIRST_ _RANDOM_(
+				"$group $knows that the truth about $project is engraved on $artifact. $theyve been searching $place to find it.",
+				"$group found out that $artifact has the truth about $project engraved on it. $theyve been looking for it in $place.",
+				"$group $knows that $artifact holds the truth about $project. They are hiding it in $place.",
+				"$group $is searching $place for $artifact because it holds the truth about $project.",
+			);
+			
+			my ( $group2, $group3 );
+			
+			if ( _RANDOM_( 1, 2 ) == 1 ) {
+				$group2 = shady_group( $redstring );
+				$redstring->{antagonists} = $redstring->{shady_group};
+				my $tool = precious_resource_with_quantity( $redstring );
+				push @parts, _UCFIRST_ _RANDOM_(
+					"$tool is being used by $group2 to stop $group_shortname.",
+					"$group2 donated $tool to help $group_shortname.",
+					"$group2 used $tool to try to stop $group_shortname but it didn't work.",
+				);
+			}
+			
+			if ( _RANDOM_( 1, 2 ) == 1 ) {
+				$group3 = shady_group( $redstring );
+				$redstring->{antagonists} //= $redstring->{shady_group};
+				my $web = website( $redstring );
+				push @parts, _UCFIRST_ _RANDOM_(
+					"$group3 hacked the $group_shortname $web account to track them through $place.",
+					"$group3 noticed $group_shortname used an IP address from $place to post on $web.",
+					"$group_shortname contacted $group3 on $web about $artifact.",
+				);
+			}
+			
+			if ( $group2 and $group3 ) {
+				push @parts, _UCFIRST_ _RANDOM_(
+					"$group2 and $group3 are in contact with each other.",
+					"$group2 and $group3 hired the same planner for their Christmas party.",
+					"$group2 and $group3 are connected.",
+					"$group2 and $group3 are probably working together.",
+				);
+			}
+			
+			return join q[ ], @parts;
 		},
 		sub {
 			my $group = shady_group( $redstring );
