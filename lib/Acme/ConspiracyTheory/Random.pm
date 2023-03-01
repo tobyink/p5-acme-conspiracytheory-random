@@ -764,6 +764,10 @@ sub website {
 		'Instagram',
 		'Geocities',
 		'Parler',
+		'Angelfire',
+		'the Fediverse',
+		'Nostr',
+		'Reddit',
 	);
 
 	_MERGE_( $redstring, website => $x );
