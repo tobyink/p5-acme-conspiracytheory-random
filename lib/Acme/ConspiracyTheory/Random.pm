@@ -744,6 +744,7 @@ sub biologist {  # and medics
 		'Robert Koch',
 		'Carl Linneaus',
 		'Alexander Fleming',
+		'Dr Fauci',
 	);
 	
 	_MERGE_( $redstring, biologist => $x );
