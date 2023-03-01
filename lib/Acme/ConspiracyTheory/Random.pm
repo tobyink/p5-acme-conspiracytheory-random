@@ -787,6 +787,8 @@ sub fatuous {
 		"They leave clues to mock us.",
 		"It's not funny!",
 		"There are too many coincidences to ignore.",
+		"You'd have to be blind not to see it!",
+		"It's so obvious!",
 	);
 
 	_MERGE_( $redstring, clone => $x );
@@ -797,12 +799,14 @@ sub clone {
 	my $redstring = shift // {};
 
 	my $x = _RANDOM_(
+		'an actor',
 		'an alien',
 		'an avatar',
 		'a CGI replica',
 		'a clone',
 		'a cyborg',
 		'a hologram',
+		'an impersonator',
 		'a look-alike',
 		'a robot',
 		'a shapeshifter',
@@ -820,6 +824,8 @@ sub lies {
 		'a big coverup',
 		'a fairy tale',
 		'disinformation',
+		'the Big Lie',
+		'fake news',
 	);
 	
 	_MERGE_( $redstring, lies => $x );
