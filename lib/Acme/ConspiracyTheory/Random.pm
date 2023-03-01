@@ -712,6 +712,7 @@ sub victim {
 		'Michael Jackson',
 		'Queen Elizabeth II',
 		'Prince Phillip',
+		'Walt Disney',
 	);
 	
 	_MERGE_( $redstring, victim => $victim );
