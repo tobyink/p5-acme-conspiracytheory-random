@@ -39,7 +39,7 @@ sub celebrity {
 		{ female => 0, name => 'Bernie Sanders' },
 		{ female => 0, name => 'Joe Biden' },
 		{ female => 0, name => 'Bill Clinton' },
-		{ female => 1, name => 'Queen Elizabeth II' },
+		{ female => 1, name => 'King Charles III' },
 		{ female => 0, name => 'Johnny Depp' },
 		{ female => 0, name => 'Q' },
 		{ female => 1, name => 'Madonna' },
@@ -570,7 +570,7 @@ sub future_time {
 		'in 2030',
 		'by the end of the century',
 		'in 2666',
-		'when Queen Elizabeth II dies',
+		'when King Charles III dies',
 		'when the ice caps melt',
 		'next Christmas',
 	);
@@ -704,6 +704,8 @@ sub victim {
 		'Malcolm X',
 		'John Lennon',
 		'Michael Jackson',
+		'Queen Elizabeth II',
+		'Prince Phillip',
 	);
 	
 	_MERGE_( $redstring, victim => $victim );
