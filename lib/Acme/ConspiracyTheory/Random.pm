@@ -165,6 +165,7 @@ sub real_animal {
 		'zebra',
 		'frog',
 		'fish',
+		'sea turtle',
 	);
 	
 	_MERGE_( $redstring, real_animal => $animal );
@@ -213,6 +214,8 @@ sub invention {
 		['cryptocurrencies', 1],
 		['smartphones', 1],
 		['bitcoin', 0],
+		['blockchain technology', 0],
+		['ChatGPT', 0],
 	);
 	
 	_MERGE_( $redstring, invention => $invention->[0],
@@ -234,6 +237,7 @@ sub shady_project {
 		'the Kalergi Plan',
 		'Eurabia',
 		'the moon-landing hoax',
+		'the LGBT+ agenda',
 	);
 	
 	_MERGE_( $redstring, shady_project => $x );
@@ -249,6 +253,7 @@ sub authority {
 		'the FBI',
 		'the CIA',
 		'NATO',
+		'the European Union',
 	);
 	
 	_MERGE_( $redstring, authority => $x );
@@ -267,6 +272,9 @@ sub dark_lord {
 		'the devil',
 		'the evil one',
 		'the almighty',
+		'the demon king',
+		'the dark prince',
+		'Voldemort',
 	);
 	
 	_MERGE_( $redstring, dark_lord => $x );
@@ -280,11 +288,15 @@ sub disease {
 		'cancer',
 		'COVID-19',
 		'HIV',
+		'AIDS',
 		'the common cold',
 		'diabetes',
 		'obesity',
 		'autism',
 		'Ebola',
+		'COVID-20',
+		'monkeypox',
+		'gender dyspohoria',
 	);
 	
 	_MERGE_( $redstring, disease => $disease );
@@ -307,6 +319,7 @@ sub disease_cause {
 		'socialism',
 		'electromagnetic radiation (WiFi!)',
 		'radon gas',
+		'all the drugs (so many drugs!)',
 	);
 	
 	_MERGE_( $redstring, disease_cause => $cause );
@@ -328,6 +341,8 @@ sub chemicals {
 		'antimatter',
 		'dark matter',
 		'fluoride',
+		'dihydrogen monoxide',
+		'carbon nanotubes',
 	);
 	
 	_MERGE_( $redstring, chemicals => $chemicals );
@@ -383,6 +398,11 @@ sub artifact {
 		"the Philosopher's Stone",
 		"a fragment of the true cross",
 		"the seal of Solomon",
+		'the crystal skull',
+		sub { "a golden " . fake_animal( $redstring ) },
+		'the original copy of the bible',
+		'the original copy of the quran',
+		'the original copy of the Declaration of Independence',
 	);
 	
 	_MERGE_( $redstring, artifact => $artifact );
@@ -560,6 +580,7 @@ sub mind_control_device {
 		['mass media', 1],
 		['space lasers', 1],
 		['hypnotism', 0],
+		['Jewish space lasers', 1],
 	);
 	
 	my $mc = _RANDOM_(@mc);
@@ -1086,6 +1107,7 @@ sub evidence {
 			# This has singular/plural problems - how to solve?
 			"$bad has ties to $p",
 			"$p probably isn't a real place anyway",
+			"$p isn't shown on any maps",
 		);
 	}
 
