@@ -7,7 +7,7 @@ use warnings;
 package Acme::ConspiracyTheory::Random;
 
 our $AUTHORITY = 'cpan:TOBYINK';
-our $VERSION   = '0.014';
+our $VERSION   = '0.015';
 
 use Exporter::Shiny qw( theory bad_punctuation );
 use List::Util 1.54 ();
